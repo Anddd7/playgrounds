@@ -1,4 +1,4 @@
-package github.eddy.jvm;
+package github.eddy.jvm.classload;
 
 
 class Eat {

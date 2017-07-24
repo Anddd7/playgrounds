@@ -1,4 +1,4 @@
-package github.eddy.jvm;
+package github.eddy.jvm.gc;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;

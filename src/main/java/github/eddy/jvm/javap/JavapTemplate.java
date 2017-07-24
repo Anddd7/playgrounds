@@ -1,4 +1,4 @@
-package github.eddy.jvm;
+package github.eddy.jvm.javap;
 
 public class JavapTemplate {
 

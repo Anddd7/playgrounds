@@ -1,6 +1,6 @@
 package github.eddy.jvm;
 
-public class JavacAndJITTest {
+public class JVMOptions {
   /**
    * List<String> 泛型在编译后会被擦除 ,只是作为编译时的约束
    *
