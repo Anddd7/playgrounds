@@ -1,5 +1,6 @@
-package github.eddy.leetcode.array;
+package github.eddy.part2;
 
+import github.eddy.leetcode.part1.TwoSum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

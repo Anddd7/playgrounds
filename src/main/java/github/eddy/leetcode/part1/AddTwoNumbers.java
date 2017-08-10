@@ -1,4 +1,4 @@
-package github.eddy.leetcode.array;
+package github.eddy.leetcode.part1;
 
 import org.junit.Test;
 
