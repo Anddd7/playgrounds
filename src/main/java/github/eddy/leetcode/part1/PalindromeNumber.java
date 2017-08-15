@@ -5,32 +5,53 @@ import org.junit.Test;
 public class PalindromeNumber {
 
   public boolean isPalindrome(int x) {
-    if (x < 0) {
+    if (x < 10) {
+      return x > -1;
+    }
+
+    if (x % 10 == 0) {
       return false;
     }
-    if (x < 10) {
-      return true;
-    }
+
+    boolean odd = String.valueOf(x).length() % 2 != 0;
 
     int source = x;
     int result = 0;
     while (source > result) {
       result = result * 10 + source % 10;
-      System.out.println(result+" | "+source);
-      if (result == source) {
+      source = source / 10;
+      //System.out.println(result+" | "+source);
+      if (odd && result == source / 10) {
         return true;
       }
-      source = source / 10;
-      System.out.println(result+" | "+source);
-      if (result == source) {
+      if (!odd && result == source) {
         return true;
       }
     }
     return false;
   }
 
+
+  public boolean _isPalindrome(int x) {
+    if (x < 10) {
+      return x > -1;
+    }
+
+    if (x % 10 == 0) {
+      return false;
+    }
+
+    String str = String.valueOf(x);
+    for (int i = 0, j = str.length() - 1; i <= j; i++, j--) {
+      if (str.charAt(i) != str.charAt(j)) {
+        return i == j;
+      }
+    }
+    return true;
+  }
+
   @Test
   public void test() {
-    System.out.println(isPalindrome(10));
+    System.out.println(isPalindrome(12));
   }
 }

@@ -1,4 +1,4 @@
-package github.eddy.part2;
+package github.eddy.leetcode.part2;
 
 import github.eddy.leetcode.part1.TwoSum;
 import java.util.ArrayList;
