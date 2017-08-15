@@ -28,6 +28,11 @@ public class RegularExpressionMatching {
     return isMatch(s, p.substring(2));
   }
 
+  public boolean _isMatch(String s, String p) {
+
+    return false;
+  }
+
   @Test
   public void test() {
     System.out.println(isMatch("aa", "aaa"));
