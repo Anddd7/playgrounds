@@ -28,13 +28,33 @@ public class RegularExpressionMatching {
     return isMatch(s, p.substring(2));
   }
 
-  public boolean _isMatch(String s, String p) {
 
-    return false;
+  public boolean _isMatch(String s, String p) {
+    if (p.isEmpty()) {
+      return s.isEmpty();
+    }
+
+    if (p.length() == 1) {
+      if (s.isEmpty() || (p.charAt(0) != '.' && p.charAt(0) != s.charAt(0))) {
+        return false;
+      } else {
+        return isMatch(s.substring(1), p.substring(1));
+      }
+    }
+
+    if (p.charAt(0) == '.' || p.charAt(0) == s.charAt(0)) {
+      if (p.charAt(1) == '*') {
+        return isMatch(s.substring(1), p);
+      } else {
+        return isMatch(s.substring(1), p.substring(1));
+      }
+    }else{
+      return false;
+    }
   }
 
   @Test
   public void test() {
-    System.out.println(isMatch("aa", "aaa"));
+    System.out.println(_isMatch("abcaa", "ab*ca*b*"));
   }
 }
