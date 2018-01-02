@@ -8,14 +8,18 @@ import java.util.List;
 import java.util.Set;
 import org.junit.Test;
 
+/**
+ * 在序列中找3个数字 ,使a+b+c=0
+ */
 public class ThreeSum {
 
   /**
    * 2017/07/13
    *
-   * O(n2)
-   * My method is basic on {@link TwoSum#twoSum(int[], int)} to find 'a+b = -c'
-   * And ignore adjacent repeat number.
+   * O(n2) My method is basic on {@link TwoSum#twoSum(int[], int)} to find 'a+b = -c' And ignore
+   * adjacent repeat number.
+   *
+   * 借鉴{@link TwoSum#twoSum(int[], int)}的方法
    */
   public List<List<Integer>> threeSum(int[] nums) {
     List<List<Integer>> result = new ArrayList();
@@ -45,12 +49,6 @@ public class ThreeSum {
     }
     return result;
   }
-
-
-
-
-
-
 
 
   @Test

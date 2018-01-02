@@ -2,16 +2,19 @@ package github.eddy.leetcode.part2;
 
 import org.junit.Test;
 
+/**
+ * 罗马数字翻译
+ */
 public class RomanToInteger {
 
   public int romanToInt(String s) {
     int result = 0;
     for (int i = 0; i < s.length(); i++) {
       if (i == s.length() - 1) {
-        result += getInt(s.charAt(i));
+        result += getInt(s.charAt(i));//最后一位数字 ,直接取值
       } else {
         int current = getInt(s.charAt(i));
-        int next = getInt(s.charAt(i + 1));
+        int next = getInt(s.charAt(i + 1));//是否有差值数(小大 表示 大-小)
         result += current < next ? -current : current;
       }
     }
