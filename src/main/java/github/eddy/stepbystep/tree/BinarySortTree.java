@@ -20,69 +20,80 @@ public class BinarySortTree extends BaseBinaryTree {
   }
 
   @Override
-  public void addElement(BinaryNodeElement parent, BinaryNodeElement target) {
+  public boolean addElement(BinaryNodeElement parent, BinaryNodeElement target) {
     if (parent.compareTo(target) > 0) {
       //left
       BinaryNodeElement element = parent.getLeftElement();
       if (element == null) {
         parent.setLeftElement(target);
-      } else {
-        addElement(element, target);
+        return true;
       }
-    } else {
-      //right
-      BinaryNodeElement element = parent.getRightElement();
-      if (element == null) {
-        parent.setRightElement(target);
-      } else {
-        addElement(element, target);
-      }
+
+      return addElement(element, target);
     }
+
+    //right
+    BinaryNodeElement element = parent.getRightElement();
+    if (element == null) {
+      parent.setRightElement(target);
+      return false;
+    }
+
+    return addElement(element, target);
   }
 
+  /**
+   * - 左右节点是空的 : 叶子节点 ,从树上移除
+   * - 只有左/右节点 : 单链 ,直接跨过这个节点
+   * - 左右节点都有 : 找左子树前驱(左边最大值) ,插入到删除的节点
+   */
   @Override
-  public void removeElement(BinaryNodeElement target) {
-    if (target.getLeftElement() == null && target.getRightElement() == null) {
-      if (target == root) {
+  public boolean removeElement(BinaryNodeElement parent, char id) {
+    if (parent == null) {
+      return false;
+    }
+
+    if (parent.id != id) {
+      return removeElement(id < parent.id ? parent.getLeftElement() : parent.getRightElement(), id);
+    }
+
+    if (parent.getLeftElement() == null && parent.getRightElement() == null) {
+      if (parent == root) {
         root = null;
       } else {
-        target.fastRemove();
+        parent.fastRemove();
       }
-      return;
-    }
-
-    if (target.getLeftElement() == null ^ target.getRightElement() == null) {
+    } else if (parent.getLeftElement() == null ^ parent.getRightElement() == null) {
       BinaryNodeElement singleChild =
-          target.getLeftElement() != null ? target.getLeftElement() : target.getRightElement();
+          parent.getLeftElement() != null ? parent.getLeftElement() : parent.getRightElement();
 
-      if (target == root) {
+      if (parent == root) {
         root = singleChild;
-      } else if (target.isLeftChild()) {
-        target.parent.setLeftElement(singleChild);
+      } else if (parent.isLeftChild()) {
+        parent.parent.setLeftElement(singleChild);
       } else {
-        target.parent.setRightElement(singleChild);
+        parent.parent.setRightElement(singleChild);
       }
-      return;
-    }
-
-    //找左子树的最大值(右子树最小值) , 一定是一个叶子节点 , 插入到删除的点
-    BinaryNodeElement leftMax = target.getLeftElement();
-    while (leftMax.getRightElement() != null) {
-      leftMax = leftMax.getRightElement();
-    }
-    //remove 叶子
-    leftMax.fastRemove();
-    //设置父->新的节点
-    if (target == root) {
-      root = leftMax;
-    } else if (target.isLeftChild()) {
-      target.parent.setLeftElement(leftMax);
     } else {
-      target.parent.setRightElement(leftMax);
+      //找左子树的最大值(右子树最小值) , 一定是一个叶子节点 , 插入到删除的点
+      BinaryNodeElement leftMax = parent.getLeftElement();
+      while (leftMax.getRightElement() != null) {
+        leftMax = leftMax.getRightElement();
+      }
+      //remove 叶子
+      leftMax.fastRemove();
+      //设置父->新的节点
+      if (parent == root) {
+        root = leftMax;
+      } else if (parent.isLeftChild()) {
+        parent.parent.setLeftElement(leftMax);
+      } else {
+        parent.parent.setRightElement(leftMax);
+      }
+      //设置节点->原有的子节点
+      leftMax.setChildren(parent.children);
     }
-    //设置节点->原有的子节点
-    leftMax.setLeftElement(target.getLeftElement());
-    leftMax.setRightElement(target.getRightElement());
+    return true;
   }
 
   /**
@@ -93,24 +104,7 @@ public class BinarySortTree extends BaseBinaryTree {
   @Override
   public void print() {
     //计算补全后的节点数
-    print((1 << getDepth(root)) - 1);
-  }
-
-  /**
-   * 计算当前节点的深度
-   */
-  private int getDepth(BinaryNodeElement element) {
-    if (element == null) {
-      return 0;
-    }
-    int depth = 0;
-    if (element.getLeftElement() != null) {
-      depth = Math.max(depth, getDepth(element.getLeftElement()));
-    }
-    if (element.getRightElement() != null) {
-      depth = Math.max(depth, getDepth(element.getRightElement()));
-    }
-    return depth + 1;
+    print((1 << root.getHeight()) - 1);
   }
 
   @Override

@@ -1,5 +1,6 @@
 package github.eddy.stepbystep;
 
+import github.eddy.stepbystep.tree.AVLTree;
 import github.eddy.stepbystep.tree.BaseTree.Element;
 import github.eddy.stepbystep.tree.BinarySortTree;
 import github.eddy.stepbystep.tree.SimpleBinaryTree;
@@ -96,6 +97,30 @@ public class TreeTest {
   public void testBinarySortTree() {
     BinarySortTree tree = new BinarySortTree();
     tree.add(4).add(2).add(3).add(1).add(7).add(5).add(9);
+    tree.getRoot();
+    tree.print();
+    tree.remove(1);
+    tree.print();
+    tree.remove(7);
+    tree.print();
+    tree.remove(4);
+    tree.print();
+  }
+
+  @Test
+  public void testAVLTree() {
+    AVLTree tree = new AVLTree();
+    tree.add(4)
+        .add(2)
+        .add(3)
+        .add(1)
+        .add(7)
+        .add(5)
+        .add(9);
+    /**
+     * TODO 节点 7 插入了2次
+     * TODO 删除中间节点失败
+     */
     tree.getRoot();
     tree.print();
     tree.remove(1);

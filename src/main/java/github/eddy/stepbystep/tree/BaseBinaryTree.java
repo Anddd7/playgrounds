@@ -25,20 +25,15 @@ public abstract class BaseBinaryTree extends BaseTree implements BinaryTreePrint
       addElement(root, new BinaryNodeElement(id));
     }
     size++;
+    System.out.println("添加节点成功:" + id);
     return this;
   }
 
-  /**
-   * - 左右节点是空的 : 叶子节点 ,从树上移除
-   * - 只有左/右节点 : 单链 ,直接跨过这个节点
-   * - 左右节点都有 : 找左子树前驱(左边最大值) ,插入到删除的节点
-   */
   @Override
   public BaseTree remove(char id) {
-    BinaryNodeElement target = find(id);
-    if (target != null) {
-      removeElement(target);
+    if (removeElement(root, id)) {
       size--;
+      System.out.println("删除节点成功:" + id);
     }
     return this;
   }
@@ -53,8 +48,12 @@ public abstract class BaseBinaryTree extends BaseTree implements BinaryTreePrint
       children = new BinaryNodeElement[2];
     }
 
-    void setParent(BinaryNodeElement parent) {
+    private void setParent(BinaryNodeElement parent) {
       this.parent = parent;
+    }
+
+    public void setChildren(BinaryNodeElement[] children) {
+      this.children = children;
     }
 
     void setLeftElement(BinaryNodeElement left) {
@@ -83,12 +82,55 @@ public abstract class BaseBinaryTree extends BaseTree implements BinaryTreePrint
       return parent.getLeftElement() == this;
     }
 
+    /**
+     * remove connection with parent
+     */
     void fastRemove() {
       if (isLeftChild()) {
         parent.setLeftElement(null);
       } else {
         parent.setRightElement(null);
       }
+      parent = null;
+    }
+
+    /**
+     * 从根节点倒序记录各节点深度
+     */
+    int getDepth() {
+      if (parent == null) {
+        return 0;
+      }
+      return parent.getDepth() + 1;
+    }
+
+    /**
+     * 计算当前节点的高度
+     */
+    int getHeight() {
+      int depth = 0;
+      if (this.getLeftElement() != null) {
+        depth = Math.max(depth, this.getLeftElement().getHeight());
+      }
+      if (this.getRightElement() != null) {
+        depth = Math.max(depth, this.getRightElement().getHeight());
+      }
+      return depth + 1;
+    }
+
+
+    int getLeftHeight() {
+      if (getLeftElement() == null) {
+        return 0;
+      }
+      return getLeftElement().getHeight();
+    }
+
+    int getRightHeight() {
+      if (getRightElement() == null) {
+        return 0;
+      }
+      return getRightElement().getHeight();
     }
 
     @Override
@@ -102,9 +144,29 @@ public abstract class BaseBinaryTree extends BaseTree implements BinaryTreePrint
     }
   }
 
+  /**
+   * 在子树中寻找节点
+   *
+   * @param parent 子树的根节点
+   * @param id     id值
+   */
   public abstract BinaryNodeElement findElement(BinaryNodeElement parent, char id);
 
-  public abstract void addElement(BinaryNodeElement parent, BinaryNodeElement target);
+  /**
+   * 在子树中添加节点
+   *
+   * @param parent 子树的根节点
+   * @param target 子节点
+   * @return true - 左叶子 ; false - 右叶子
+   */
+  public abstract boolean addElement(BinaryNodeElement parent, BinaryNodeElement target);
 
-  public abstract void removeElement(BinaryNodeElement target);
+  /**
+   * 在子树中删除节点
+   *
+   * @param parent 子树的根节点
+   * @param id     id值
+   * @return true - 成功 ; false - 失败
+   */
+  public abstract boolean removeElement(BinaryNodeElement parent, char id);
 }
