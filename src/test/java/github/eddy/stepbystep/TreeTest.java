@@ -1,9 +1,9 @@
 package github.eddy.stepbystep;
 
-import github.eddy.stepbystep.tree.AVLTree;
-import github.eddy.stepbystep.tree.BaseTree.Element;
-import github.eddy.stepbystep.tree.BinarySortTree;
-import github.eddy.stepbystep.tree.SimpleBinaryTree;
+import github.eddy.stepbystep.tree.impl.AVLTree;
+import github.eddy.stepbystep.tree.impl.BinarySortTree;
+import github.eddy.stepbystep.tree.impl.SimpleBinaryTree;
+import github.eddy.stepbystep.tree.node.BaseElement;
 import java.util.ArrayDeque;
 import org.junit.Test;
 
@@ -86,9 +86,9 @@ public class TreeTest {
     SimpleBinaryTree tree = new SimpleBinaryTree();
     tree.add(1).add(2).add(6).add(2).add(8).add(5).add(5);
     tree.print();
-    Element node = tree.find(6);
+    BaseElement node = tree.find(6);
     System.out.println(node.getParent());
-    Element[] children = node.getParent().getChildren();
+    BaseElement[] children = node.getParent().getChildren();
     System.out.println(children[0]);
     System.out.println(children[1]);
   }

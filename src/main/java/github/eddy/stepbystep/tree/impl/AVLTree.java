@@ -1,4 +1,6 @@
-package github.eddy.stepbystep.tree;
+package github.eddy.stepbystep.tree.impl;
+
+import github.eddy.stepbystep.tree.node.BinaryLinkedElement;
 
 /**
  * @author and777
@@ -20,119 +22,122 @@ public class AVLTree extends BinarySortTree {
    * |    - 左为空 ,插入到右子树的右边 : 右右 ,需要 右旋转
    */
   @Override
-  public boolean addElement(BaseBinaryTree.BinaryNodeElement parent,
-      BaseBinaryTree.BinaryNodeElement target) {
+  public boolean addElement(BinaryLinkedElement current, char id) {
+    if (root == null) {
+      root = new BinaryLinkedElement(id);
+      return true;
+    }
 
-    if (parent.compareTo(target) > 0) {
+    if (id < current.getKey()) {
       //left
-      BaseBinaryTree.BinaryNodeElement element = parent.getLeftElement();
+      BinaryLinkedElement leftChild = current.getLeftChild();
 
       //左为空 ,直接插入
-      if (element == null) {
-        parent.setLeftElement(target);
+      if (leftChild == null) {
+        current.setLeftChild(new BinaryLinkedElement(id));
         return true;
       }
 
       //插入到左子树 ,需要判断是否旋转
-      boolean addToSubLeft = addElement(element, target);
+      boolean isLeftLeaf = addElement(leftChild, id);
       //当前节点的 左子树 超重 : 左边高度(2) > 右边高度(0) + 2
-      if (parent.getLeftHeight() - parent.getRightHeight() == 2) {
+      if (current.getLeftHeight() - current.getRightHeight() == 2) {
         //插入到左边
-        if (addToSubLeft) {
+        if (isLeftLeaf) {
           //左左
-          leftWithLeftRotation(parent);
+          leftWithLeftRotation(current);
         } else {
           //左右
-          leftWithRightRotation(parent);
+          leftWithRightRotation(current);
         }
       }
-      return addToSubLeft;
+      return isLeftLeaf;
     } else {
       //right
-      BaseBinaryTree.BinaryNodeElement element = parent.getRightElement();
-      if (element == null) {
-        parent.setRightElement(target);
+      BinaryLinkedElement rightChild = current.getRightChild();
+      if (rightChild == null) {
+        current.setRightChild(new BinaryLinkedElement(id));
         return false;
       }
       //插入到右子树 ,需要判断是否旋转
-      boolean addToSubLeft = addElement(element, target);
+      boolean isLeftLeaf = addElement(rightChild, id);
       //当前节点的 右子树 超重 : 左边高度(2) > 右边高度(0) + 2
-      if (parent.getRightHeight() - parent.getLeftHeight() == 2) {
+      if (current.getRightHeight() - current.getLeftHeight() == 2) {
         //插入到右边
-        if (addToSubLeft) {
+        if (isLeftLeaf) {
           //右左
-          rightWithLeftRotation(parent);
+          rightWithLeftRotation(current);
         } else {
           //右右
-          rightWithRightRotation(parent);
+          rightWithRightRotation(current);
         }
       }
-      return addToSubLeft;
+      return isLeftLeaf;
     }
   }
 
 
   @Override
-  public boolean removeElement(BinaryNodeElement parent, char id) {
-    if (parent == null) {
+  public boolean removeElement(BinaryLinkedElement current, char id) {
+    if (current == null) {
       return false;
     }
 
-    if (id < parent.id) {
-      boolean success = removeElement(parent.getLeftElement(), id);
+    if (id < current.getKey()) {
+      boolean success = removeElement(current.getLeftChild(), id);
       //成功删除位于左子树中的节点 ,且右子树超重
-      if (success && parent.getRightHeight() - parent.getLeftHeight() == 2) {
-        BinaryNodeElement subRightTree = parent.getRightElement();
-        if (subRightTree.getRightHeight() > subRightTree.getLeftHeight()) {
+      if (success && current.getRightHeight() - current.getLeftHeight() == 2) {
+        BinaryLinkedElement rightChild = current.getRightChild();
+        if (rightChild.getRightHeight() > rightChild.getLeftHeight()) {
           //右子树向右偏移
-          rightWithRightRotation(parent);
+          rightWithRightRotation(current);
         } else {
           //右子树向左偏移
-          rightWithLeftRotation(parent);
+          rightWithLeftRotation(current);
         }
       }
       return success;
     }
 
-    if (id > parent.id) {
-      boolean success = removeElement(parent.getRightElement(), id);
+    if (id > current.getKey()) {
+      boolean success = removeElement(current.getRightChild(), id);
       //成功删除位于右子树中的节点 ,且左子树超重
-      if (success && parent.getLeftHeight() - parent.getRightHeight() == 2) {
-        BinaryNodeElement subLeftTree = parent.getLeftElement();
-        if (subLeftTree.getLeftHeight() > subLeftTree.getRightHeight()) {
+      if (success && current.getLeftHeight() - current.getRightHeight() == 2) {
+        BinaryLinkedElement leftChild = current.getLeftChild();
+        if (leftChild.getLeftHeight() > leftChild.getRightHeight()) {
           //左子树向左偏移
-          leftWithLeftRotation(parent);
+          leftWithLeftRotation(current);
         } else {
           //左子树向右偏移
-          leftWithRightRotation(parent);
+          leftWithRightRotation(current);
         }
       }
       return success;
     }
 
-    if (parent.getLeftElement() != null && parent.getRightElement() != null
-        && parent.getLeftHeight() < parent.getRightHeight()) {
+    if (current.getLeftChild() != null && current.getRightChild() != null
+        && current.getLeftHeight() < current.getRightHeight()) {
       //右子树比左边高 ,找右边的最小值插入到删除的点
-      BinaryNodeElement rightMin = parent.getRightElement();
-      while (rightMin.getLeftElement() != null) {
-        rightMin = rightMin.getLeftElement();
+      BinaryLinkedElement rightMin = current.getRightChild();
+      while (rightMin.getLeftChild() != null) {
+        rightMin = rightMin.getLeftChild();
       }
       //remove 叶子
       rightMin.fastRemove();
       //设置父->新的节点
-      if (parent == root) {
+      if (current == root) {
         root = rightMin;
-      } else if (parent.isLeftChild()) {
-        parent.parent.setLeftElement(rightMin);
+      } else if (current.isLeftChildOfParent()) {
+        current.getParent().setLeftChild(rightMin);
       } else {
-        parent.parent.setRightElement(rightMin);
+        current.getParent().setRightChild(rightMin);
       }
       //设置节点->原有的子节点
-      rightMin.setChildren(parent.children);
+      rightMin.setChildren(current.getChildren());
       return true;
     }
 
-    return super.removeElement(parent, id);
+    return super.removeElement(current, id);
   }
 
   /**
@@ -157,28 +162,28 @@ public class AVLTree extends BinarySortTree {
    * | 1   -   4   6   -   -   -   -
    * |- - - - - - - - - - - - - - - -
    */
-  private void leftWithLeftRotation(BinaryNodeElement subTreeRoot) {
-    BinaryNodeElement leftNode = subTreeRoot.getLeftElement();
-    BinaryNodeElement rightLeafOfLeftNode = leftNode.getRightElement();
+  private void leftWithLeftRotation(BinaryLinkedElement current) {
+    BinaryLinkedElement leftChild = current.getLeftChild();
+    BinaryLinkedElement rightOfLeftChild = leftChild.getRightChild();
 
     //remove leftNode from subTreeRoot
-    subTreeRoot.setLeftElement(null);
+    current.setLeftChild(null);
 
     //upper leftNode
-    if (subTreeRoot == root) {
+    if (current == root) {
       //replace leftNode as root
-      root = leftNode;
-      leftNode.parent = null;
+      root = leftChild;
+      leftChild.setParent(null);
     } else {
       //set leftNode as parent.left
-      subTreeRoot.parent.setLeftElement(leftNode);
+      current.getParent().setLeftChild(leftChild);
     }
 
     //put subTreeRoot as leftNode.right
-    leftNode.setRightElement(subTreeRoot);
+    leftChild.setRightChild(current);
 
     //put old rightLeafOfLeftNode as subTreeRoot.left
-    subTreeRoot.setLeftElement(rightLeafOfLeftNode);
+    current.setLeftChild(rightOfLeftChild);
   }
 
   /**
@@ -197,61 +202,61 @@ public class AVLTree extends BinarySortTree {
    * | 2   4   -   -   -   -   -   -
    * |1 - - - - - - - - - - - - - - -
    */
-  private void leftWithRightRotation(BinaryNodeElement subTreeRoot) {
-    BinaryNodeElement leftNodeWithRightLeaf = subTreeRoot.getLeftElement();
-    BinaryNodeElement rightLeaf = leftNodeWithRightLeaf.getRightElement();
+  private void leftWithRightRotation(BinaryLinkedElement subTreeRoot) {
+    BinaryLinkedElement leftChildWithRightLeaf = subTreeRoot.getLeftChild();
+    BinaryLinkedElement rightLeaf = leftChildWithRightLeaf.getRightChild();
 
     //remove rightLeaf from node
-    leftNodeWithRightLeaf.setRightElement(null);
+    leftChildWithRightLeaf.setRightChild(null);
     //set rightLeaf as root.left
-    subTreeRoot.setLeftElement(rightLeaf);
+    subTreeRoot.setLeftChild(rightLeaf);
     //set leftNode as rightLeaf.left
-    rightLeaf.setLeftElement(leftNodeWithRightLeaf);
+    rightLeaf.setLeftChild(leftChildWithRightLeaf);
     //execute left left rotation
     leftWithLeftRotation(subTreeRoot);
   }
 
   /**
-   * @see this#leftWithLeftRotation(BinaryNodeElement)
+   * @see this#leftWithLeftRotation(BinaryLinkedElement)
    */
-  private void rightWithRightRotation(BinaryNodeElement subTreeRoot) {
-    BinaryNodeElement rightNode = subTreeRoot.getRightElement();
-    BinaryNodeElement leftLeafOfRightNode = rightNode.getLeftElement();
+  private void rightWithRightRotation(BinaryLinkedElement current) {
+    BinaryLinkedElement rightChild = current.getRightChild();
+    BinaryLinkedElement leftOfRightChild = rightChild.getLeftChild();
 
     //remove rightNode from subTreeRoot
-    subTreeRoot.setRightElement(null);
+    current.setRightChild(null);
 
     //upper rightNode
-    if (subTreeRoot == root) {
+    if (current == root) {
       //replace rightNode as root
-      root = rightNode;
-      rightNode.parent = null;
+      root = rightChild;
+      rightChild.setParent(null);
     } else {
       //set rightNode as parent.right
-      subTreeRoot.parent.setRightElement(rightNode);
+      current.getParent().setRightChild(rightChild);
     }
 
     //put subTreeRoot as rightNode.left
-    rightNode.setLeftElement(subTreeRoot);
+    rightChild.setLeftChild(current);
 
     //put old leftLeafOfRightNode as subTreeRoot.right
-    subTreeRoot.setRightElement(leftLeafOfRightNode);
+    current.setRightChild(leftOfRightChild);
   }
 
   /**
-   * @see this#leftWithRightRotation(BinaryNodeElement)
+   * @see this#leftWithRightRotation(BinaryLinkedElement)
    */
-  private void rightWithLeftRotation(BinaryNodeElement subTreeRoot) {
-    BinaryNodeElement rightNodeWithLeftLeaf = subTreeRoot.getRightElement();
-    BinaryNodeElement leftLeaf = rightNodeWithLeftLeaf.getLeftElement();
+  private void rightWithLeftRotation(BinaryLinkedElement current) {
+    BinaryLinkedElement rightChildWithLeftLeaf = current.getRightChild();
+    BinaryLinkedElement leftLeaf = rightChildWithLeftLeaf.getLeftChild();
 
     //remove leftLeaf from node
-    rightNodeWithLeftLeaf.setLeftElement(null);
+    rightChildWithLeftLeaf.setLeftChild(null);
     //set leftLeaf as root.right
-    subTreeRoot.setRightElement(leftLeaf);
+    current.setRightChild(leftLeaf);
     //set rightNode as leftLeaf.right
-    leftLeaf.setRightElement(rightNodeWithLeftLeaf);
+    leftLeaf.setRightChild(rightChildWithLeftLeaf);
     //execute right right rotation
-    rightWithRightRotation(subTreeRoot);
+    rightWithRightRotation(current);
   }
 }

@@ -6,6 +6,8 @@ import java.util.Iterator;
 /**
  * @author and777
  * @date 2018/1/25
+ *
+ * 打印二叉树
  */
 public interface BinaryTreePrint {
 
@@ -73,7 +75,7 @@ public interface BinaryTreePrint {
   }
 
   /**
-   * 获取存放 num 个元素的树高度 , 即获得满足 2^h-1 > num 的最小h值
+   * 获取存放 num 个元素的 完全二叉树 高度 , 即获得满足 2^h-1 > num 的最小h值
    * - 通过5次与运算(参考java集合扩容) 可以获得2^h-1 ,但是需要log等操作获得h
    * - 多次移位(除2)计数 ,效率更高
    *

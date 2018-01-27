@@ -1,5 +1,8 @@
-package github.eddy.stepbystep.tree;
+package github.eddy.stepbystep.tree.impl;
 
+import github.eddy.stepbystep.tree.BaseTree;
+import github.eddy.stepbystep.tree.BinaryTreePrint;
+import github.eddy.stepbystep.tree.node.BaseElement;
 import java.util.Iterator;
 
 /**
@@ -9,14 +12,14 @@ import java.util.Iterator;
  * 完全二叉树
  * - 基于数组(广度优先排布)
  */
-public class SimpleBinaryTree extends BaseTree implements BinaryTreePrint {
+public final class SimpleBinaryTree extends BaseTree implements BinaryTreePrint {
 
-  private Element[] tree;
+  private BaseElement[] tree;
 
   @Override
-  public Element find(char id) {
+  public BaseElement find(char id) {
     for (int i = 0; i < size; i++) {
-      if (tree[i].id == id) {
+      if (tree[i].getKey() == id) {
         return tree[i];
       }
     }
@@ -26,27 +29,29 @@ public class SimpleBinaryTree extends BaseTree implements BinaryTreePrint {
   @Override
   public BaseTree add(char id) {
     if (tree == null) {
-      tree = new Element[10];
+      tree = new ArrayElement[10];
     }
-
     //扩容
     if (size == tree.length) {
       grow();
     }
-
-    tree[size++] = new Element(id, size);
+    tree[size++] = new ArrayElement(id, size);
     return this;
   }
 
   @Override
   public BaseTree remove(char id) {
     for (int i = 0; i < size; i++) {
-      if (tree[i].id == id) {
+      if (tree[i].getKey() == id) {
         System.arraycopy(tree, i + 1, tree, i, --size - i);
       }
     }
-
     return this;
+  }
+
+  @Override
+  public int getHeight() {
+    return getHeight(size);
   }
 
   @Override
@@ -70,7 +75,7 @@ public class SimpleBinaryTree extends BaseTree implements BinaryTreePrint {
 
     @Override
     public Character next() {
-      return tree[pos++].id;
+      return tree[pos++].getKey();
     }
   }
 
@@ -79,17 +84,17 @@ public class SimpleBinaryTree extends BaseTree implements BinaryTreePrint {
    * - 二叉树只有2个节点
    * - 基于数组实现 ,通过index可以直接访问父子节点
    */
-  class Element extends BaseTree.Element {
+  class ArrayElement extends BaseElement {
 
     int innerIndex = 0;
 
-    Element(char id, int innerIndex) {
-      super(id);
+    ArrayElement(char id, int innerIndex) {
+      this.id = id;
       this.innerIndex = innerIndex;
     }
 
     @Override
-    public Element getParent() {
+    public BaseElement getParent() {
       if (innerIndex == 0) {
         return this;
       }
@@ -97,10 +102,10 @@ public class SimpleBinaryTree extends BaseTree implements BinaryTreePrint {
     }
 
     @Override
-    public Element[] getChildren() {
+    public BaseElement[] getChildren() {
       int leftIndex = (innerIndex << 1) + 1;
       int rightIndex = (innerIndex << 1) + 2;
-      return new Element[]{
+      return new BaseElement[]{
           leftIndex < size ? tree[leftIndex] : null,
           rightIndex < size ? tree[rightIndex] : null};
     }
@@ -108,7 +113,7 @@ public class SimpleBinaryTree extends BaseTree implements BinaryTreePrint {
 
 
   private void grow() {
-    Element[] newTree = new Element[tree.length * 2];
+    BaseElement[] newTree = new ArrayElement[tree.length * 2];
     System.arraycopy(tree, 0, newTree, 0, size);
     tree = newTree;
   }
