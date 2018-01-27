@@ -117,10 +117,7 @@ public class TreeTest {
         .add(7)
         .add(5)
         .add(9);
-    /**
-     * TODO 节点 7 插入了2次
-     * TODO 删除中间节点失败
-     */
+
     tree.getRoot();
     tree.print();
     tree.remove(1);
@@ -128,6 +125,8 @@ public class TreeTest {
     tree.remove(7);
     tree.print();
     tree.remove(4);
+    tree.print();
+    tree.remove(9);
     tree.print();
   }
 }

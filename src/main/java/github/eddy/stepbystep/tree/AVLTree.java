@@ -95,7 +95,7 @@ public class AVLTree extends BinarySortTree {
     }
 
     if (id > parent.id) {
-      boolean success = removeElement(parent.getLeftElement(), id);
+      boolean success = removeElement(parent.getRightElement(), id);
       //成功删除位于右子树中的节点 ,且左子树超重
       if (success && parent.getLeftHeight() - parent.getRightHeight() == 2) {
         BinaryNodeElement subLeftTree = parent.getLeftElement();
@@ -216,7 +216,7 @@ public class AVLTree extends BinarySortTree {
    */
   private void rightWithRightRotation(BinaryNodeElement subTreeRoot) {
     BinaryNodeElement rightNode = subTreeRoot.getRightElement();
-    BinaryNodeElement leftLeafOfRightNode = rightNode.getRightElement();
+    BinaryNodeElement leftLeafOfRightNode = rightNode.getLeftElement();
 
     //remove rightNode from subTreeRoot
     subTreeRoot.setRightElement(null);
