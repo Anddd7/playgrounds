@@ -6,6 +6,6 @@ package github.eddy.stepbystep.tree.impl;
  *
  * 红黑树
  */
-public class RBTree extends BinarySortTree{
+public class RBTree extends AVLTree{
 
 }

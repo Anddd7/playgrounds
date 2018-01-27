@@ -14,16 +14,6 @@ import java.util.Iterator;
 public class BinarySortTree extends BaseBinaryTree<BinaryLinkedElement> {
 
   @Override
-  public BinaryLinkedElement findElement(BinaryLinkedElement current, char id) {
-    if (current == null || current.getKey() == id) {
-      return current;
-    }
-    return findElement(
-        id < current.getKey() ? current.getLeftChild() : current.getRightChild(),
-        id);
-  }
-
-  @Override
   public boolean addElement(BinaryLinkedElement current, char id) {
     if (root == null) {
       root = new BinaryLinkedElement(id);
@@ -108,50 +98,5 @@ public class BinarySortTree extends BaseBinaryTree<BinaryLinkedElement> {
       leftMax.setChildren(current.getChildren());
     }
     return true;
-  }
-
-  /**
-   * 打印函数针对 完全二叉树 ,利用广度优先 ,打印每一个节点
-   * 但是二叉搜索树并不是完全的 ,因此在实现的迭代器中需要补全没有的节点(占位)
-   * 补全后的树作为打印对象
-   */
-  @Override
-  public void print() {
-    //计算补全后的节点数
-    print((1 << root.getHeight()) - 1);
-  }
-
-  @Override
-  public Iterator<Character> iterator() {
-    return new NodeIterator();
-  }
-
-  class NodeIterator implements Iterator<Character> {
-
-    int pos = 0;
-    ArrayDeque<BinaryLinkedElement> deque = new ArrayDeque<>(size);
-
-    public NodeIterator() {
-      deque.offer(root);
-    }
-
-    @Override
-    public boolean hasNext() {
-      return pos != size;
-    }
-
-    @Override
-    public Character next() {
-      BinaryLinkedElement current = deque.poll();
-      BinaryLinkedElement nextLeft = current.getLeftChild();
-      BinaryLinkedElement nextRight = current.getRightChild();
-      deque.offer(nextLeft != null ? nextLeft : new BinaryLinkedElement((char) 0));
-      deque.offer(nextRight != null ? nextRight : new BinaryLinkedElement((char) 0));
-
-      if (current.getKey() != 0) {
-        pos++;
-      }
-      return current.getKey();
-    }
   }
 }

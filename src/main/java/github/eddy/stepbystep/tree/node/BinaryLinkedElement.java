@@ -8,6 +8,7 @@ public class BinaryLinkedElement extends BaseElement {
 
   protected BinaryLinkedElement parent;
   protected BinaryLinkedElement[] children;
+  protected boolean isLeftChildOfParent = true;
 
   public BinaryLinkedElement(char id) {
     this.id = id;
@@ -27,14 +28,16 @@ public class BinaryLinkedElement extends BaseElement {
   public void setLeftChild(BinaryLinkedElement left) {
     children[0] = left;
     if (left != null) {
-      left.setParent(this);
+      left.parent = this;
+      left.isLeftChildOfParent = true;
     }
   }
 
   public void setRightChild(BinaryLinkedElement right) {
     children[1] = right;
     if (right != null) {
-      right.setParent(this);
+      right.parent = this;
+      right.isLeftChildOfParent = false;
     }
   }
 
@@ -47,7 +50,7 @@ public class BinaryLinkedElement extends BaseElement {
   }
 
   public boolean isLeftChildOfParent() {
-    return this.equals(parent.getLeftChild());
+    return this.isLeftChildOfParent;
   }
 
   /**
@@ -60,16 +63,6 @@ public class BinaryLinkedElement extends BaseElement {
       parent.setRightChild(null);
     }
     parent = null;
-  }
-
-  /**
-   * 从根节点倒序记录各节点深度
-   */
-  public int getDepth() {
-    if (parent == null) {
-      return 0;
-    }
-    return parent.getDepth() + 1;
   }
 
   /**
