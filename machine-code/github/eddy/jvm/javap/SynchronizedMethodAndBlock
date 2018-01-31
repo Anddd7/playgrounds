@@ -1,0 +1,272 @@
+Classfile /D:/IDEASpace/algorithm-lab/target/classes/github/eddy/jvm/javap/SynchronizedMethodAndBlock.class
+  Last modified 2018-1-31; size 1221 bytes
+  MD5 checksum b69c751a12f55cf094a9f41641cbe96f
+  Compiled from "SynchronizedMethodAndBlock.java"
+public class github.eddy.jvm.javap.SynchronizedMethodAndBlock
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #6.#31         // java/lang/Object."<init>":()V
+   #2 = Fieldref           #5.#32         // github/eddy/jvm/javap/SynchronizedMethodAndBlock.a:I
+   #3 = Fieldref           #5.#33         // github/eddy/jvm/javap/SynchronizedMethodAndBlock.mutex:Ljava/lang/Object;
+   #4 = Fieldref           #5.#34         // github/eddy/jvm/javap/SynchronizedMethodAndBlock.b:I
+   #5 = Class              #35            // github/eddy/jvm/javap/SynchronizedMethodAndBlock
+   #6 = Class              #36            // java/lang/Object
+   #7 = Utf8               mutex
+   #8 = Utf8               Ljava/lang/Object;
+   #9 = Utf8               a
+  #10 = Utf8               I
+  #11 = Utf8               b
+  #12 = Utf8               <init>
+  #13 = Utf8               ()V
+  #14 = Utf8               Code
+  #15 = Utf8               LineNumberTable
+  #16 = Utf8               LocalVariableTable
+  #17 = Utf8               this
+  #18 = Utf8               Lgithub/eddy/jvm/javap/SynchronizedMethodAndBlock;
+  #19 = Utf8               methodA
+  #20 = Utf8               methodA1
+  #21 = Utf8               StackMapTable
+  #22 = Class              #35            // github/eddy/jvm/javap/SynchronizedMethodAndBlock
+  #23 = Class              #36            // java/lang/Object
+  #24 = Class              #37            // java/lang/Throwable
+  #25 = Utf8               methodA2
+  #26 = Utf8               methodB
+  #27 = Utf8               methodB1
+  #28 = Utf8               methodB2
+  #29 = Utf8               SourceFile
+  #30 = Utf8               SynchronizedMethodAndBlock.java
+  #31 = NameAndType        #12:#13        // "<init>":()V
+  #32 = NameAndType        #9:#10         // a:I
+  #33 = NameAndType        #7:#8          // mutex:Ljava/lang/Object;
+  #34 = NameAndType        #11:#10        // b:I
+  #35 = Utf8               github/eddy/jvm/javap/SynchronizedMethodAndBlock
+  #36 = Utf8               java/lang/Object
+  #37 = Utf8               java/lang/Throwable
+{
+  private java.lang.Object mutex;
+    descriptor: Ljava/lang/Object;
+    flags: ACC_PRIVATE
+
+  private int a;
+    descriptor: I
+    flags: ACC_PRIVATE
+
+  private volatile int b;
+    descriptor: I
+    flags: ACC_PRIVATE, ACC_VOLATILE
+
+  public github.eddy.jvm.javap.SynchronizedMethodAndBlock();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 7: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lgithub/eddy/jvm/javap/SynchronizedMethodAndBlock;
+
+  public synchronized void methodA();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: bipush        10
+         3: putfield      #2                  // Field a:I
+         6: return
+      LineNumberTable:
+        line 14: 0
+        line 15: 6
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       7     0  this   Lgithub/eddy/jvm/javap/SynchronizedMethodAndBlock;
+
+  public void methodA1();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: aload_0
+         1: dup
+         2: astore_1
+         3: monitorenter
+         4: aload_0
+         5: bipush        10
+         7: putfield      #2                  // Field a:I
+        10: aload_1
+        11: monitorexit
+        12: goto          20
+        15: astore_2
+        16: aload_1
+        17: monitorexit
+        18: aload_2
+        19: athrow
+        20: return
+      Exception table:
+         from    to  target type
+             4    12    15   any
+            15    18    15   any
+      LineNumberTable:
+        line 18: 0
+        line 19: 4
+        line 20: 10
+        line 21: 20
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      21     0  this   Lgithub/eddy/jvm/javap/SynchronizedMethodAndBlock;
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 15
+          locals = [ class github/eddy/jvm/javap/SynchronizedMethodAndBlock, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+
+  public void methodA2();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: aload_0
+         1: getfield      #3                  // Field mutex:Ljava/lang/Object;
+         4: dup
+         5: astore_1
+         6: monitorenter
+         7: aload_0
+         8: bipush        10
+        10: putfield      #2                  // Field a:I
+        13: aload_1
+        14: monitorexit
+        15: goto          23
+        18: astore_2
+        19: aload_1
+        20: monitorexit
+        21: aload_2
+        22: athrow
+        23: return
+      Exception table:
+         from    to  target type
+             7    15    18   any
+            18    21    18   any
+      LineNumberTable:
+        line 25: 0
+        line 26: 7
+        line 27: 13
+        line 28: 23
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      24     0  this   Lgithub/eddy/jvm/javap/SynchronizedMethodAndBlock;
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 18
+          locals = [ class github/eddy/jvm/javap/SynchronizedMethodAndBlock, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+
+  public synchronized void methodB();
+    descriptor: ()V
+    flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+    Code:
+      stack=2, locals=1, args_size=1
+         0: aload_0
+         1: bipush        10
+         3: putfield      #4                  // Field b:I
+         6: return
+      LineNumberTable:
+        line 31: 0
+        line 32: 6
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       7     0  this   Lgithub/eddy/jvm/javap/SynchronizedMethodAndBlock;
+
+  public void methodB1();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: aload_0
+         1: dup
+         2: astore_1
+         3: monitorenter
+         4: aload_0
+         5: bipush        10
+         7: putfield      #4                  // Field b:I
+        10: aload_1
+        11: monitorexit
+        12: goto          20
+        15: astore_2
+        16: aload_1
+        17: monitorexit
+        18: aload_2
+        19: athrow
+        20: return
+      Exception table:
+         from    to  target type
+             4    12    15   any
+            15    18    15   any
+      LineNumberTable:
+        line 35: 0
+        line 36: 4
+        line 37: 10
+        line 38: 20
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      21     0  this   Lgithub/eddy/jvm/javap/SynchronizedMethodAndBlock;
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 15
+          locals = [ class github/eddy/jvm/javap/SynchronizedMethodAndBlock, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+
+  public void methodB2();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: aload_0
+         1: getfield      #3                  // Field mutex:Ljava/lang/Object;
+         4: dup
+         5: astore_1
+         6: monitorenter
+         7: aload_0
+         8: bipush        10
+        10: putfield      #4                  // Field b:I
+        13: aload_1
+        14: monitorexit
+        15: goto          23
+        18: astore_2
+        19: aload_1
+        20: monitorexit
+        21: aload_2
+        22: athrow
+        23: return
+      Exception table:
+         from    to  target type
+             7    15    18   any
+            18    21    18   any
+      LineNumberTable:
+        line 42: 0
+        line 43: 7
+        line 44: 13
+        line 45: 23
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      24     0  this   Lgithub/eddy/jvm/javap/SynchronizedMethodAndBlock;
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 18
+          locals = [ class github/eddy/jvm/javap/SynchronizedMethodAndBlock, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+}
+SourceFile: "SynchronizedMethodAndBlock.java"
