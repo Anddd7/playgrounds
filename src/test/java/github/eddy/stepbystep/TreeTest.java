@@ -110,13 +110,15 @@ public class TreeTest {
   @Test
   public void testAVLTree() {
     AVLTree tree = new AVLTree();
-    tree.add(4)
-        .add(2)
-        .add(3)
-        .add(1)
-        .add(7)
+    tree.add(7)
         .add(5)
-        .add(9);
+        .add(8)
+        .add(3)
+        .add(6)
+        .add(9)
+        .add(1)
+        .add(4)
+        .add(2);
 
     tree.getRoot();
     tree.print();

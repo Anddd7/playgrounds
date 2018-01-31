@@ -25,29 +25,33 @@ public class JavaCLIUtil {
     }
   }
 
-  public static Stream<String> javap(String filePath) {
-    return javap(filePath, "-c");
+  public static Stream<String> javap(String filePath, boolean printStack) {
+    return javap(filePath, "-p -s -c" + (printStack ? " -verbose" : ""));
   }
 
   /**
    * get target class's machine code
    */
-  public static Stream<String> javap(Class classType) {
-    return javap(
-        classType.getClassLoader().getResource("").getPath() + classType.getName().replace(".", "/")
-            + ".class");
+  public static Stream<String> javap(Class classType, boolean printStack) {
+    return javap(classType.getClassLoader().getResource("").getPath()
+            + classType.getName().replace(".", "/") + ".class",
+        printStack);
   }
 
   /**
    * get target class's machine code
    */
   public static void javapToDir(Class classType, String dir) {
+    javapToDir(classType, dir, false);
+  }
+
+  public static void javapToDir(Class classType, String dir, boolean printStack) {
     try {
       Path path = Paths.get(dir + "/" + classType.getName().replace(".", "/"));
       if (Files.notExists(path.getParent())) {
         Files.createDirectories(path.getParent());
       }
-      Files.write(path, javap(classType).collect(Collectors.toList()));
+      Files.write(path, javap(classType, printStack).collect(Collectors.toList()));
     } catch (IOException e) {
       e.printStackTrace();
     }

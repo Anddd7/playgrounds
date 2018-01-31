@@ -56,20 +56,20 @@ public abstract class BaseBinaryTree<T extends BinaryLinkedElement>
   /**
    * 在子树中添加节点
    *
-   * @param parent 子树的根节点
+   * @param current 子树的根节点
    * @param id     id值
    * @return true - 左叶子 ; false - 右叶子
    */
-  public abstract boolean addElement(T parent, char id);
+  public abstract boolean addElement(T current, char id);
 
   /**
    * 在子树中删除节点
    *
-   * @param parent 子树的根节点
+   * @param current 子树的根节点
    * @param id     id值
    * @return true - 成功 ; false - 失败
    */
-  public abstract boolean removeElement(T parent, char id);
+  public abstract boolean removeElement(T current, char id);
 
 
 

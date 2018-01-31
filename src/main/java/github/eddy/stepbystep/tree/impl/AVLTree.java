@@ -7,6 +7,8 @@ import github.eddy.stepbystep.tree.node.BinaryLinkedElement;
  * @date 2018/1/26
  *
  * 平衡二叉树 - AVL
+ *
+ * TODO 左左 左右 右左 右右 判断错误,需要重新编码
  */
 public class AVLTree extends BinarySortTree {
 
@@ -161,29 +163,28 @@ public class AVLTree extends BinarySortTree {
    * |   2       5       -       9
    * | 1   -   4   6   -   -   -   -
    * |- - - - - - - - - - - - - - - -
+   *
+   *
+   * 20180129 优化名称定义
+   * 如上 ,插入 1 后导致的旋转是以 5 为顶点 ,向 节点3 偏移 ,因此
+   * 5 = grandpa ,3 = parent , 2 = child
    */
-  private void leftWithLeftRotation(BinaryLinkedElement current) {
-    BinaryLinkedElement leftChild = current.getLeftChild();
-    BinaryLinkedElement rightOfLeftChild = leftChild.getRightChild();
+  private void leftWithLeftRotation(BinaryLinkedElement grandpa) {
+    BinaryLinkedElement parent = grandpa.getLeftChild();
+    BinaryLinkedElement child = parent.getLeftChild();
 
-    //remove leftNode from subTreeRoot
-    current.setLeftChild(null);
-
-    //upper leftNode
-    if (current == root) {
-      //replace leftNode as root
-      root = leftChild;
-      leftChild.setParent(null);
+    if (grandpa == root) {
+      root = parent;
+    } else if (grandpa.isLeftChildOfParent()) {
+      grandpa.getParent().setLeftChild(parent);
     } else {
-      //set leftNode as parent.left
-      current.getParent().setLeftChild(leftChild);
+      grandpa.getParent().setRightChild(parent);
     }
 
-    //put subTreeRoot as leftNode.right
-    leftChild.setRightChild(current);
-
-    //put old rightLeafOfLeftNode as subTreeRoot.left
-    current.setLeftChild(rightOfLeftChild);
+    BinaryLinkedElement oldRightOfParent = parent.getRightChild();
+    parent.setLeftChild(child);
+    parent.setRightChild(grandpa);
+    grandpa.setLeftChild(oldRightOfParent);
   }
 
   /**

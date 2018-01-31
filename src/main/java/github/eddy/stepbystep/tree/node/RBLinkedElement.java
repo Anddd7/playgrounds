@@ -8,7 +8,7 @@ package github.eddy.stepbystep.tree.node;
  */
 public class RBLinkedElement extends BinaryLinkedElement {
 
-  enum Color {
+  public enum Color {
     RED, BLACK
   }
 
@@ -17,6 +17,10 @@ public class RBLinkedElement extends BinaryLinkedElement {
   public RBLinkedElement(char id) {
     super(id);
     this.color = Color.RED;
+  }
+
+  public void setColor(Color color) {
+    this.color = color;
   }
 
   public Color getColor() {
