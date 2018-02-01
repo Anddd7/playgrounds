@@ -108,7 +108,7 @@ public class TreeTest {
   }
 
   @Test
-  public void testAVLTree() {
+  public void testAVLLeftLeftTree() {
     AVLTree tree = new AVLTree();
     tree.add(7)
         .add(5)
@@ -117,11 +117,38 @@ public class TreeTest {
         .add(6)
         .add(9)
         .add(1)
-        .add(4)
-        .add(2);
-
-    tree.getRoot();
+        .add(4);
     tree.print();
+    //left left 偏移
+    tree.add(2);
+    tree.print();
+
+    tree.remove(1);
+    tree.print();
+    tree.remove(7);
+    tree.print();
+    tree.remove(4);
+    tree.print();
+    tree.remove(9);
+    tree.print();
+  }
+
+  @Test
+  public void testAVLLeftRightTree() {
+    AVLTree tree = new AVLTree();
+    tree.add(7)
+        .add(5)
+        .add(8)
+        .add(2)
+        .add(6)
+        .add(9)
+        .add(1)
+        .add(4);
+    tree.print();
+    //left right 偏移
+    tree.add(3);
+    tree.print();
+
     tree.remove(1);
     tree.print();
     tree.remove(7);

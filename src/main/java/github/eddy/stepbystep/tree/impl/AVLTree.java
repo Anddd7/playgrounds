@@ -7,8 +7,6 @@ import github.eddy.stepbystep.tree.node.BinaryLinkedElement;
  * @date 2018/1/26
  *
  * 平衡二叉树 - AVL
- *
- * TODO 左左 左右 右左 右右 判断错误,需要重新编码
  */
 public class AVLTree extends BinarySortTree {
 
@@ -44,8 +42,7 @@ public class AVLTree extends BinarySortTree {
       boolean isLeftLeaf = addElement(leftChild, id);
       //当前节点的 左子树 超重 : 左边高度(2) > 右边高度(0) + 2
       if (current.getLeftHeight() - current.getRightHeight() == 2) {
-        //插入到左边
-        if (isLeftLeaf) {
+        if (leftChild.getLeftHeight() > leftChild.getRightHeight()) {
           //左左
           leftWithLeftRotation(current);
         } else {
@@ -66,7 +63,7 @@ public class AVLTree extends BinarySortTree {
       //当前节点的 右子树 超重 : 左边高度(2) > 右边高度(0) + 2
       if (current.getRightHeight() - current.getLeftHeight() == 2) {
         //插入到右边
-        if (isLeftLeaf) {
+        if (rightChild.getLeftHeight() > rightChild.getRightHeight()) {
           //右左
           rightWithLeftRotation(current);
         } else {
@@ -143,121 +140,114 @@ public class AVLTree extends BinarySortTree {
   }
 
   /**
-   * 处理左左偏移 : 最后插入的是1
-   * |               7
-   * |       5                8
-   * |   3       6       -       9
-   * | 2   4   -   -   -   -   -   -
-   * |1 - - - - - - - - - - - - - - -
-   *
-   * 如图 ,节点 5 的左子树高度比右边大2 (3:1) ,且 1 节点在左边
-   * - 需要将 左子树(节点3) 上升 , 节点 5 被挤到右子树
-   * |               7
-   * |       3                8
-   * |   2       5       -       9
-   * | 1   -   -   6   -   -   -   -
-   * |- - - - - - - - - - - - - - - -
-   * - 这时节点 4 因为和节点 5 重合 (都是3的右子树) ,但 4 一定比 5 小 (未移动前在 5 的左子树中) ,所以将 4 放到 5 的左子树
-   * |               7
-   * |       3                8
-   * |   2       5       -       9
-   * | 1   -   4   6   -   -   -   -
-   * |- - - - - - - - - - - - - - - -
-   *
-   *
-   * 20180129 优化名称定义
-   * 如上 ,插入 1 后导致的旋转是以 5 为顶点 ,向 节点3 偏移 ,因此
-   * 5 = grandpa ,3 = parent , 2 = child
-   */
-  private void leftWithLeftRotation(BinaryLinkedElement grandpa) {
-    BinaryLinkedElement parent = grandpa.getLeftChild();
-    BinaryLinkedElement child = parent.getLeftChild();
-
-    if (grandpa == root) {
-      root = parent;
-    } else if (grandpa.isLeftChildOfParent()) {
-      grandpa.getParent().setLeftChild(parent);
-    } else {
-      grandpa.getParent().setRightChild(parent);
-    }
-
-    BinaryLinkedElement oldRightOfParent = parent.getRightChild();
-    parent.setLeftChild(child);
-    parent.setRightChild(grandpa);
-    grandpa.setLeftChild(oldRightOfParent);
-  }
-
-  /**
-   * 处理左右偏移 : 最后插入的是2
+   * 处理 进阶 左左偏移 : 最后插入的是2 ,但节点3左右高度差为1 ,满足条件不进行调整
    * |               7
    * |       5                8
    * |   3       6       -       9
    * | 1   4   -   -   -   -   -   -
    * |- 2 - - - - - - - - - - - - - -
    *
-   * 如图 ,节点 5 的左子树高度比右边大2 (3:1) ,且 2 节点在右边
-   * - 需要转化成左左偏移 , 将节点 2 (左右偏移发生点) 上升 ,节点 1 下降到左边
+   * 上升到节点 5 的时候 ,左子树高度比右边大2 (3:1) ,且节点1高度大于节点4(2-1) , 5-3-1 形成左左偏移
+   * - 需要将 左子树(节点3) 上升 , 节点 5 被挤到右子树
+   * |               7
+   * |       3                8
+   * |   1       5       -       9
+   * | -   2   -   6   -   -   -   -
+   * |- - - - - - - - - - - - - - - -
+   * - 这时节点 4 因为和节点 5 重合 (都是3的右子树) ,但 4 一定比 5 小 (未移动前在 5 的左子树中) ,所以将 4 放到 5 的左子树
+   * |               7
+   * |       3                8
+   * |   1       5       -       9
+   * | -   2   4   6   -   -   -   -
+   * |- - - - - - - - - - - - - - - -
+   *
+   *
+   * 20180201 优化名称定义
+   * 如上 ,5-3-1 构成的左右偏移 : 7 = grandpa ,5 = parent ,3 = child
+   */
+  private void leftWithLeftRotation(BinaryLinkedElement parent) {
+    BinaryLinkedElement child = parent.getLeftChild();
+
+    if (parent == root) {
+      root = child;
+    } else if (parent.isLeftChildOfParent()) {
+      parent.getParent().setLeftChild(child);
+    } else {
+      parent.getParent().setRightChild(child);
+    }
+
+    parent.setLeftChild(child.getRightChild());
+    child.setRightChild(parent);
+  }
+
+  /**
+   * 处理 进阶 左右偏移 : 最后插入的是3 ,但节点2左右高度差为1 ,满足条件不进行调整
    * |               7
    * |       5                8
-   * |   3       6       -       9
-   * | 2   4   -   -   -   -   -   -
-   * |1 - - - - - - - - - - - - - - -
+   * |   2       6       -       9
+   * | 1   4   -   -   -   -   -   -
+   * |- - 3 - - - - - - - - - - - - -
+   *
+   * 上升到节点 5 的时候 ,左子树高度比右边大2 (3-1) ,且 节点4高度大于节点1 (5-2-4形成左右偏移)
+   * - 需要转化成左左偏移 , 将节点 4 (左右偏移发生点) 上升 ,节点 2 下降到左边
+   * - 因为节点4还有左节点3 ,上升后被节点2覆盖 ,因此需要加到2的右节点上(一定比2大)
+   * |               7
+   * |       5                8
+   * |   4       6       -       9
+   * | 2   -   -   -   -   -   -   -
+   * |1 3 - - - - - - - - - - - - - -
+   *
+   * 20180201 优化名称定义
+   * 如上 ,5-2-4 构成的左右偏移 : 5 = grandpa ,2 = parent , 4 = child
    */
-  private void leftWithRightRotation(BinaryLinkedElement subTreeRoot) {
-    BinaryLinkedElement leftChildWithRightLeaf = subTreeRoot.getLeftChild();
-    BinaryLinkedElement rightLeaf = leftChildWithRightLeaf.getRightChild();
+  private void leftWithRightRotation(BinaryLinkedElement grandpa) {
+    BinaryLinkedElement parent = grandpa.getLeftChild();
+    BinaryLinkedElement child = parent.getRightChild();
 
-    //remove rightLeaf from node
-    leftChildWithRightLeaf.setRightChild(null);
-    //set rightLeaf as root.left
-    subTreeRoot.setLeftChild(rightLeaf);
-    //set leftNode as rightLeaf.left
-    rightLeaf.setLeftChild(leftChildWithRightLeaf);
+    //child replace the parent
+    grandpa.setLeftChild(child);
+    //append child.left to parent.right
+    parent.setRightChild(child.getLeftChild());
+    //set parent as child.left
+    child.setLeftChild(parent);
+
     //execute left left rotation
-    leftWithLeftRotation(subTreeRoot);
+    leftWithLeftRotation(grandpa);
   }
 
   /**
    * @see this#leftWithLeftRotation(BinaryLinkedElement)
    */
-  private void rightWithRightRotation(BinaryLinkedElement current) {
-    BinaryLinkedElement rightChild = current.getRightChild();
-    BinaryLinkedElement leftOfRightChild = rightChild.getLeftChild();
+  private void rightWithRightRotation(BinaryLinkedElement parent) {
+    BinaryLinkedElement child = parent.getRightChild();
 
-    //remove rightNode from subTreeRoot
-    current.setRightChild(null);
-
-    //upper rightNode
-    if (current == root) {
-      //replace rightNode as root
-      root = rightChild;
-      rightChild.setParent(null);
+    if (parent == root) {
+      root = child;
+    } else if (parent.isLeftChildOfParent()) {
+      parent.getParent().setLeftChild(child);
     } else {
-      //set rightNode as parent.right
-      current.getParent().setRightChild(rightChild);
+      parent.getParent().setRightChild(child);
     }
 
-    //put subTreeRoot as rightNode.left
-    rightChild.setLeftChild(current);
-
-    //put old leftLeafOfRightNode as subTreeRoot.right
-    current.setRightChild(leftOfRightChild);
+    parent.setRightChild(child.getLeftChild());
+    child.setLeftChild(parent);
   }
 
   /**
    * @see this#leftWithRightRotation(BinaryLinkedElement)
    */
-  private void rightWithLeftRotation(BinaryLinkedElement current) {
-    BinaryLinkedElement rightChildWithLeftLeaf = current.getRightChild();
-    BinaryLinkedElement leftLeaf = rightChildWithLeftLeaf.getLeftChild();
+  private void rightWithLeftRotation(BinaryLinkedElement grandpa) {
+    BinaryLinkedElement parent = grandpa.getRightChild();
+    BinaryLinkedElement child = parent.getLeftChild();
 
-    //remove leftLeaf from node
-    rightChildWithLeftLeaf.setLeftChild(null);
-    //set leftLeaf as root.right
-    current.setRightChild(leftLeaf);
-    //set rightNode as leftLeaf.right
-    leftLeaf.setRightChild(rightChildWithLeftLeaf);
+    //child replace the parent
+    grandpa.setRightChild(child);
+    //append child.right to parent.left
+    parent.setLeftChild(child.getRightChild());
+    //set parent as child.right
+    child.setRightChild(parent);
+
     //execute right right rotation
-    rightWithRightRotation(current);
+    leftWithLeftRotation(grandpa);
   }
 }
