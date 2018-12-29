@@ -2,7 +2,7 @@ package com.github.anddd7.leetcode.part1;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LongestSubstringWithoutRepeatingCharacters {
 
@@ -30,7 +30,7 @@ public class LongestSubstringWithoutRepeatingCharacters {
       //update current char's index
       set.put(c, i);
       //compare with prev length
-      result = Math.max(result, i-cutPoint+1);
+      result = Math.max(result, i - cutPoint + 1);
     }
     return result;
   }

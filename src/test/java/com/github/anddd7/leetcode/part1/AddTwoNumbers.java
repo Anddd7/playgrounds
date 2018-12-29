@@ -1,7 +1,7 @@
 package com.github.anddd7.leetcode.part1;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AddTwoNumbers {
 

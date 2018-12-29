@@ -1,7 +1,7 @@
 package com.github.anddd7.leetcode.part2;
 
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IntegerToRoman {
 
@@ -10,7 +10,7 @@ public class IntegerToRoman {
     String C[] = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
     String X[] = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
     String I[] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
-    return M[num/1000] + C[(num%1000)/100]+ X[(num%100)/10] + I[num%10];
+    return M[num / 1000] + C[(num % 1000) / 100] + X[(num % 100) / 10] + I[num % 10];
   }
 
   public String intToRoman(int num) {

@@ -3,7 +3,6 @@ package com.github.anddd7.datastructure;
 import java.util.Objects;
 
 /**
- * @author Anddd7
  * 双向链表, 提供link/get功能
  */
 public class NodeLinkList<E> {

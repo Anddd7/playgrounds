@@ -8,7 +8,7 @@ import java.util.Comparator;
  *
  * @see Collections#binarySearch
  */
-public class BinarySearch {
+class BinarySearch {
 
   static <T extends Comparable<T>> T search_loop(T[] array, T target) {
     return search(array, target, Comparable::compareTo);

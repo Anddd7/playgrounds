@@ -1,7 +1,7 @@
 package com.github.anddd7.leetcode.part2;
 
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Given an array S of n integers, find three integers in S such that the sum is closest to a given

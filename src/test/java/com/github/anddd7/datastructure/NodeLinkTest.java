@@ -1,19 +1,19 @@
 package com.github.anddd7.datastructure;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.github.anddd7.datastructure.NodeLinkList.Node;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Anddd7
  */
-public class NodeLinkTest {
+class NodeLinkTest {
 
-  NodeLinkList<Integer> nodeLink = new NodeLinkList<>();
+  private NodeLinkList<Integer> nodeLink = new NodeLinkList<>();
 
   @Test
-  public void linkFirst() {
+  void linkFirst() {
     nodeLink.linkFirst(1);
     nodeLink.linkFirst(2);
     nodeLink.linkFirst(3);
@@ -55,7 +55,7 @@ public class NodeLinkTest {
   }
 
   @Test
-  public void remove() {
+  void remove() {
     nodeLink.linkLast(1);
     nodeLink.linkLast(2);
     nodeLink.linkLast(3);

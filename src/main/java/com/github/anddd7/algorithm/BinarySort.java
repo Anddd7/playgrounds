@@ -7,19 +7,19 @@ import java.util.List;
  * 二分插入排序法: 将数组元素依次插入一个已排序的新数组中, 按照二分查找法查找待插入位置
  *
  * @see BinarySearch
- * @see java.util.TimSort#binarySort(Object[], int, int, int, Comparator)
+ * @see java.util.TimSort#binarySort
  *
  * TimSort 采用 分区(归并)+二分插入排序的方式 进行排序
  * @see java.util.Collections#sort(List)
- * @see java.util.TimSort#sort(Object[], int, int, Comparator, Object[], int, int)
+ * @see java.util.TimSort#sort
  */
-public class BinarySort {
+class BinarySort {
 
   static <T extends Comparable<T>> T[] sort_loop(T[] list) {
     return sort(list, Comparable::compareTo);
   }
 
-  static <T> T[] sort(T[] list, Comparator<T> comparator) {
+  private static <T> T[] sort(T[] list, Comparator<T> comparator) {
     for (int i = 1; i < list.length; i++) {
       insert(list, i, comparator);
     }

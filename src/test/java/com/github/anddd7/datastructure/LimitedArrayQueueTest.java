@@ -1,19 +1,19 @@
 package com.github.anddd7.datastructure;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Anddd7
  */
-public class LimitedArrayQueueTest {
+class LimitedArrayQueueTest {
 
-  LimitedArrayQueue<String> limitedArrayQueue = new LimitedArrayQueue<>(3);
+  private LimitedArrayQueue<String> limitedArrayQueue = new LimitedArrayQueue<>(3);
 
   @Test
-  public void pushAndPoll() {
+  void pushAndPoll() {
     limitedArrayQueue.push("1");
     limitedArrayQueue.push("2");
     limitedArrayQueue.push("3");
@@ -26,5 +26,4 @@ public class LimitedArrayQueueTest {
     assertEquals("4", limitedArrayQueue.poll());
     assertNull(limitedArrayQueue.poll());
   }
-
 }

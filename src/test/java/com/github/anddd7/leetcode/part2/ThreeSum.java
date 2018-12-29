@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * 在序列中找3个数字 ,使a+b+c=0

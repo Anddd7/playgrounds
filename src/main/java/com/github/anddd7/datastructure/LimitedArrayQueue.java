@@ -1,7 +1,6 @@
 package com.github.anddd7.datastructure;
 
 /**
- * @author Anddd7
  * 有限单向循环队列
  */
 public class LimitedArrayQueue<E> {

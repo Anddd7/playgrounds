@@ -29,6 +29,7 @@
 
     <junit.jupiter.v>5.3.2</junit.jupiter.v>
     <mockito.jupiter.v>2.23.4</mockito.jupiter.v>
+    <assertj.v>3.11.1</assertj.v>
     <slf4j.v>1.7.25</slf4j.v>
     <logback.v>1.2.3</logback.v>
   </properties>
@@ -57,6 +58,13 @@
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
       <version>${mockito.jupiter.v}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.v}</version>
       <scope>test</scope>
     </dependency>
 
