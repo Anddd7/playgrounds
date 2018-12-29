@@ -1,6 +1,6 @@
 Compiled from "DifferenceBetweenIfAndTernaryExpression.java"
-public class github.eddy.javatools.javap.DifferenceBetweenIfAndTernaryExpression {
-  public github.eddy.javatools.javap.DifferenceBetweenIfAndTernaryExpression();
+public class DifferenceBetweenIfAndTernaryExpression {
+  public DifferenceBetweenIfAndTernaryExpression();
     descriptor: ()V
     Code:
        0: aload_0

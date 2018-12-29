@@ -1,6 +1,6 @@
 Compiled from "StringOperation.java"
-public class github.eddy.javatools.javap.StringOperation {
-  public github.eddy.javatools.javap.StringOperation();
+public class StringOperation {
+  public StringOperation();
     descriptor: ()V
     Code:
        0: aload_0
