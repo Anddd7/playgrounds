@@ -1,6 +1,5 @@
-package com.github.anddd7.javatools.javap;
+package com.github.anddd7.utils;
 
-import com.github.anddd7.utils.JavaCommandLineTool;
 import com.github.anddd7.utils.javap.BasicTypeAndMethod;
 import com.github.anddd7.utils.javap.DifferenceBetweenIfAndTernaryExpression;
 import com.github.anddd7.utils.javap.StringOperation;
