@@ -3,7 +3,7 @@ package com.github.anddd7.datastructure;
 /**
  * 有限单向循环队列
  */
-public class LimitedArrayQueue<E> {
+class LimitedArrayQueue<E> {
 
   private final int capacity;
   private int size;
@@ -11,12 +11,12 @@ public class LimitedArrayQueue<E> {
   private int pushIndex = -1;
   private int pollIndex = -1;
 
-  public LimitedArrayQueue(int capacity) {
+  LimitedArrayQueue(int capacity) {
     this.capacity = Integer.highestOneBit(capacity) << 1;
     this.elements = new Object[this.capacity];
   }
 
-  public void push(E e) {
+  void push(E e) {
     if (size == capacity) {
       return;
     }
@@ -24,7 +24,7 @@ public class LimitedArrayQueue<E> {
     size++;
   }
 
-  public E poll() {
+  E poll() {
     if (size == 0) {
       return null;
     }

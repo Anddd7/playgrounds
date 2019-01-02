@@ -5,9 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-/**
- * @author Anddd7
- */
 class LimitedArrayQueueTest {
 
   private LimitedArrayQueue<String> limitedArrayQueue = new LimitedArrayQueue<>(3);

@@ -1,8 +1,6 @@
-package com.github.anddd7.javatools.javap;
+package com.github.anddd7.utils.javap;
 
 /**
- * @author Anddd7
- *
  * Java 不提供运算符重载, 但 String 可以使用+进行连接
  * 其实是编译器级别的语法糖, +被编译成 StringBuilder
  * 所以在支持这个语法糖的版本, 直接使用+号不会影响效率

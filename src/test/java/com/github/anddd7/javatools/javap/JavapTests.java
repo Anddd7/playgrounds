@@ -1,6 +1,10 @@
 package com.github.anddd7.javatools.javap;
 
-import com.github.anddd7.utils.JavaCommandLineUtil;
+import com.github.anddd7.utils.JavaCommandLineTool;
+import com.github.anddd7.utils.javap.BasicTypeAndMethod;
+import com.github.anddd7.utils.javap.DifferenceBetweenIfAndTernaryExpression;
+import com.github.anddd7.utils.javap.StringOperation;
+import com.github.anddd7.utils.javap.SynchronizedMethodAndBlock;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
@@ -11,21 +15,21 @@ class JavapTests {
 
   @Test
   void generate_DifferenceBetweenIfAndTernaryExpression() throws IOException {
-    JavaCommandLineUtil.javap(DifferenceBetweenIfAndTernaryExpression.class);
+    JavaCommandLineTool.javap(DifferenceBetweenIfAndTernaryExpression.class);
   }
 
   @Test
   void generate_BasicTypeAndMethod() throws IOException {
-    JavaCommandLineUtil.javap(BasicTypeAndMethod.class);
+    JavaCommandLineTool.javap(BasicTypeAndMethod.class);
   }
 
   @Test
   void generate_SynchronizedMethodAndBlock() throws IOException {
-    JavaCommandLineUtil.javap(SynchronizedMethodAndBlock.class);
+    JavaCommandLineTool.javap(SynchronizedMethodAndBlock.class);
   }
 
   @Test
   void generate_StringOperation() throws IOException {
-    JavaCommandLineUtil.javap(StringOperation.class);
+    JavaCommandLineTool.javap(StringOperation.class);
   }
 }

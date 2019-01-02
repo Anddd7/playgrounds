@@ -5,7 +5,7 @@ import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 import java.util.List;
 
-public class MemoryUtil {
+public class MemoryTool {
 
   public static void main(String[] args) {
     MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();

@@ -1,9 +1,6 @@
-package com.github.anddd7.javatools.javap;
+package com.github.anddd7.utils.javap;
 
-/**
- * @author and777
- * TODO
- */
+@SuppressWarnings("all")
 public class SynchronizedMethodAndBlock {
 
   private Object mutex;

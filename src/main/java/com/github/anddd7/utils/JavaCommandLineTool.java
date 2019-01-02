@@ -17,11 +17,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author And777
+ * Command Tool for
+ * - javap
+ * - java
  */
-public class JavaCommandLineUtil {
+public final class JavaCommandLineTool {
 
-  private static final Logger log = LoggerFactory.getLogger(JavaCommandLineUtil.class);
+  private static final Logger log = LoggerFactory.getLogger(JavaCommandLineTool.class);
 
   private static final String DEFAULT_SOURCECODE_DIR = "machine-code";
   private static final String JAVAP_COMMAND = "javap -p -s -c %s %s";
@@ -70,9 +72,11 @@ public class JavaCommandLineUtil {
    * -------------------
    */
   public static void printGCMessage(Class classType) {
-    executeCommand(format(JAVA_GC_COMMAND, classType.getSimpleName())).forEach(log::debug);
+    executeCommand(format(JAVA_GC_COMMAND, classType.getSimpleName()))
+        .stream()
+        .reduce((s, s2) -> s + "/n" + s2)
+        .ifPresent(s -> log.debug("\n" + s));
   }
-
 
   /**
    * ----------------------

@@ -1,8 +1,6 @@
-package com.github.anddd7.javatools.javap;
+package com.github.anddd7.utils.javap;
 
-/**
- * TODO
- */
+@SuppressWarnings("all")
 public class BasicTypeAndMethod {
 
   public int i1 = 10;

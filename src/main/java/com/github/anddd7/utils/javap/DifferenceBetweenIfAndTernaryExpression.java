@@ -1,9 +1,5 @@
-package com.github.anddd7.javatools.javap;
+package com.github.anddd7.utils.javap;
 
-/**
- * @author and777
- * 对比 if 和 三元表达式 在汇编码上的区别
- */
 public class DifferenceBetweenIfAndTernaryExpression {
 
   /**

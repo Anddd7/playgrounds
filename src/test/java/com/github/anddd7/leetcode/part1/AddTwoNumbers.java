@@ -16,7 +16,7 @@ public class AddTwoNumbers {
    * a + b + c(0) = n * 10 + m  ->  (m)->(n)+
    * a1 + b1 + c1(n) = n1 * 10 + m1  -> (m1)->(n1)+
    */
-  public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+  ListNode addTwoNumbers(ListNode l1, ListNode l2) {
     ListNode result = new ListNode(0);
 
     ListNode current = result;
@@ -82,7 +82,7 @@ public class AddTwoNumbers {
   }
 
   @Test
-  public void test() {
+  void testCase1() {
     ListNode l1 = new ListNode(3);
     ListNode l2 = new ListNode(4).add(l1);
     ListNode l3 = new ListNode(2).add(l2);
