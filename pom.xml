@@ -32,6 +32,7 @@
     <assertj.v>3.11.1</assertj.v>
     <slf4j.v>1.7.25</slf4j.v>
     <logback.v>1.2.3</logback.v>
+    <idea.annotation.version>16.0.3</idea.annotation.version>
   </properties>
 
   <dependencies>
@@ -78,6 +79,12 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>${logback.v}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>${idea.annotation.version}</version>
     </dependency>
 
   </dependencies>

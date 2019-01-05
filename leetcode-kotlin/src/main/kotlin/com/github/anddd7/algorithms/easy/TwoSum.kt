@@ -1,7 +1,5 @@
 package com.github.anddd7.algorithms.easy
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException
-
 /**
  * 在给定数组中存在2个元素, 相加等于target
  */
@@ -12,6 +10,13 @@ class TwoSum {
      * - 双层循环: O(n2) | O(1)
      */
     fun twoSum(nums: IntArray, target: Int): IntArray {
-        throw NotImplementedException()
+        if (nums.size == 2) return nums
+
+        for (i in 0..(nums.size - 1)) {
+            for (j in (i + 1)..(nums.size - 1)) {
+                if (nums[i] + nums[j] == target) return intArrayOf(nums[i], nums[j])
+            }
+        }
+        return IntArray(0)
     }
 }
