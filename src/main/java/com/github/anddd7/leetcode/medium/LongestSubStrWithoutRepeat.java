@@ -1,5 +1,6 @@
 package com.github.anddd7.leetcode.medium;
 
+import com.github.anddd7.leetcode.LowPerformance;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import java.util.Map;
  */
 public class LongestSubStrWithoutRepeat {
 
+  @LowPerformance
   public int lengthOfLongestSubstring(String s) {
     if (s.length() == 1) {
       return 1;
