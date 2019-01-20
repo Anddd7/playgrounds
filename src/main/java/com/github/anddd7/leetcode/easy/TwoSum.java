@@ -1,6 +1,9 @@
 package com.github.anddd7.leetcode.easy;
 
+import com.github.anddd7.leetcode.HighPerformance;
 import com.github.anddd7.leetcode.LowPerformance;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 在给定数组中存在2个元素, 相加等于target
@@ -10,8 +13,31 @@ import com.github.anddd7.leetcode.LowPerformance;
  */
 public class TwoSum {
 
-  @LowPerformance
   public int[] twoSum(int[] nums, int target) {
+//    return checkEachCombination(nums, target);
+    return checkWithHashMap(nums, target);
+  }
+
+  @HighPerformance("O[n]")
+  private int[] checkWithHashMap(int[] nums, int target) {
+    if (nums.length == 2) {
+      return new int[]{0, 1};
+    }
+
+    Map<Integer, Integer> resultToIndex = new HashMap<>();
+
+    for (int i = 0; i < nums.length; i++) {
+      Integer indexOfAddend = resultToIndex.get(target - nums[i]);
+      if (indexOfAddend != null) {
+        return new int[]{indexOfAddend, i};
+      }
+      resultToIndex.put(nums[i], i);
+    }
+    return new int[0];
+  }
+
+  @LowPerformance("O(n^2)")
+  private int[] checkEachCombination(int[] nums, int target) {
     if (nums.length == 2) {
       return new int[]{0, 1};
     }

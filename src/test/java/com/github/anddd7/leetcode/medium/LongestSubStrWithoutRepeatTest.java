@@ -13,8 +13,14 @@ class LongestSubStrWithoutRepeatTest {
     assertThat(instance.lengthOfLongestSubstring("dvdf")).isEqualTo(3);
   }
 
+
   @Test
   void case2() {
     assertThat(instance.lengthOfLongestSubstring("abcabcbb")).isEqualTo(3);
+  }
+
+  @Test
+  void case3() {
+    assertThat(instance.lengthOfLongestSubstring("abba")).isEqualTo(2);
   }
 }
