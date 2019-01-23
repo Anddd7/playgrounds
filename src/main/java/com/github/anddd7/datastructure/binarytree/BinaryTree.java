@@ -1,4 +1,4 @@
-package com.github.anddd7.datastructure;
+package com.github.anddd7.datastructure.binarytree;
 
 /**
  * TODO 二叉树

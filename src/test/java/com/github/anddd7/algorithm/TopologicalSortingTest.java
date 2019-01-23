@@ -1,4 +1,4 @@
-package com.github.anddd7.algorithm.sort;
+package com.github.anddd7.algorithm;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
@@ -6,6 +6,7 @@ import static java.util.Comparator.comparingInt;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.github.anddd7.algorithm.TopologicalSorting;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

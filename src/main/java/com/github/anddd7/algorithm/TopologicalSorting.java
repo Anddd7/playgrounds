@@ -1,4 +1,4 @@
-package com.github.anddd7.algorithm.sort;
+package com.github.anddd7.algorithm;
 
 import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
