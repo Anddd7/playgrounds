@@ -24,7 +24,7 @@ public class ZigZag {
    * 第二行的坐标为 1 1+4,0+4-1 1+8,0+8-1 ... (下一个loop向前-1)
    * 第三行的坐标为 2 2+4 2+8 ...
    */
-  @NormalPerformance
+  @NormalPerformance("84%")
   public String convert(String s, int numRows) {
     if (s.length() < 2 || numRows == 1) {
       return s;
