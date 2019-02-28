@@ -17,10 +17,20 @@ class HowToUseStreamTest {
     List<Integer> result = list.stream()
         .map(s -> s.charAt(0))// lazy
         .filter(c -> c > 'd')// lazy
-        .map(c -> Character.digit(c, 2))// lazy
+        .map(c -> (int) c)// lazy
         .collect(Collectors.toList());// execute immediately
     logger.info("result: {}", result);
   }
 
+  @Test
+  void filterAndMapWithDIYStream() {
+    List<String> list = Arrays.asList("a", "b", "c", "d", "e", "f", "g");
+    List<Integer> result = HowToUseStream.buildStream(list)
+        .map(s -> s.charAt(0))
+        .filter(c -> c > 'd')
+        .map(c -> (int) c)
+        .collectToList();
+    logger.info("result: {}", result);
+  }
 
 }

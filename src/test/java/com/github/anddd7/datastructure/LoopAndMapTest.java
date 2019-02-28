@@ -25,7 +25,6 @@ class LoopAndMapTest {
         asList(10, 10),
         asList(10, 10),
 
-
         asList(100, 10),
         asList(100, 10),
 
