@@ -74,6 +74,7 @@ class ThreeSum {
    * - 通过比较前一个resolved, 避免使用Set -> 减少耗时/内存
    * - 在遍历查询后两个元素时, 也通过比较进行skip, 避免使用Set/构造重复的结果数组 -> 减少耗时/内存
    */
+  @SuppressWarnings("Duplicates")
   @HighPerformance("96%, also low memory used > 99.9%")
   private List<List<Integer>> threeSumSkipAsMuchAsPossible(int[] nums) {
     List<List<Integer>> res = new ArrayList<>();

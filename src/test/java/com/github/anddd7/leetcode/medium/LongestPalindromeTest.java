@@ -13,5 +13,4 @@ class LongestPalindromeTest {
     assertThat(instance.longestPalindrome("babad"))
         .isEqualTo("bab");
   }
-
 }
