@@ -83,6 +83,7 @@ public class MergeKSortedLists {
     return partion(lists, 0, lists.length - 1);
   }
 
+  // 两路归并
   public static ListNode partion(ListNode[] lists, int s, int e) {
     if (s == e) {
       return lists[s];
@@ -97,7 +98,7 @@ public class MergeKSortedLists {
     }
   }
 
-  //This function is from Merge Two Sorted Lists.
+  // This function is from Merge Two Sorted Lists.
   public static ListNode merge(ListNode l1, ListNode l2) {
     if (l1 == null) {
       return l2;

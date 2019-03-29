@@ -1,6 +1,7 @@
 package com.github.anddd7.leetcode.medium;
 
 import com.github.anddd7.leetcode.HighPerformance;
+import com.github.anddd7.leetcode.medium.RemoveNthFromEnd.ListNode;
 
 /**
  * 给定两个链表(不等长), 对值做加法, 包含进位
@@ -27,15 +28,5 @@ public class AddTwoNumbers {
     l1.val = newValue;
     l1.next = addNumber(newCarry, l1.next, r1.next);
     return l1;
-  }
-
-  class ListNode {
-
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-      val = x;
-    }
   }
 }
