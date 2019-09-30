@@ -1,4 +1,4 @@
-package com.github.anddd7.algorithms.medium
+package com.github.anddd7.leetcode.medium
 
 
 /**

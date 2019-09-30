@@ -1,4 +1,4 @@
-package com.github.anddd7.algorithms.easy
+package com.github.anddd7.leetcode.easy
 
 /**
  * 在给定数组中存在2个元素, 相加等于target

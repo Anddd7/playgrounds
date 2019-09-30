@@ -1,4 +1,4 @@
-package com.github.anddd7.algorithms
+package com.github.anddd7.leetcode
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
