@@ -43,6 +43,9 @@ internal class SimpleCoroutinesTest {
     executor.execute {
       println("hello, [${Thread.currentThread().name}]")
     }
+    executor.execute {
+      println("hello, [${Thread.currentThread().name}]")
+    }
 
     println("after execute")
 
@@ -160,9 +163,13 @@ internal class SimpleCoroutinesTest {
       delay(600)
       println("desc is :$desc")
     }
+
     launch {
       //      val code = getCode()
-      //      val value =  getValue()
+      //      val value = getValue()
+      //      val name = getName(code)
+      //      desc = "${code}, ${value}, $name"
+
       val code = async { getCode() }
       val value = async { getValue() }
       val name = getName(code.await())
