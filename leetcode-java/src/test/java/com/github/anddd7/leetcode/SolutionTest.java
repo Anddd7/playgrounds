@@ -8,9 +8,9 @@ class SolutionTest {
   @Test
   void name() {
     Assertions.assertThat(
-        Solution.INSTANCE.reachNumber(3)
+        Solution.INSTANCE.isHappy(10)
     ).isEqualTo(
-        2
+        true
     );
   }
 }
