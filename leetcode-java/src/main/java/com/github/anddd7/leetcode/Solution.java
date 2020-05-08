@@ -4,37 +4,22 @@ public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public class TreeNode {
-
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-      val = x;
+  public int maximalSquare(char[][] matrix) {
+    int side = '0';
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; j < matrix[0].length; j++) {
+        if (matrix[i][j] == '1') {
+          int previous = i == 0 || j == 0 ?
+              '0'
+              : Math.min(
+                  matrix[i - 1][j - 1],
+                  Math.min(matrix[i - 1][j], matrix[i][j - 1])
+              );
+          matrix[i][j] = (char) (1 + previous);
+          side = Math.max(side, matrix[i][j]);
+        }
+      }
     }
-  }
-
-  public boolean isSubtree(TreeNode s, TreeNode t) {
-    if (t == null) {
-      return true;
-    }
-    if (s == null) {
-      return false;
-    }
-    return isSameTree(s, t) || isSubtree(s.left, t) || isSubtree(s.right, t);
-  }
-
-  public boolean isSameTree(TreeNode s, TreeNode t) {
-    if (s == null && t == null) {
-      return true;
-    }
-    if (s == null || t == null) {
-      return false;
-    }
-    if (s.val != t.val) {
-      return false;
-    }
-    return isSameTree(s.left, t.left) && isSameTree(s.right, t.right);
+    return (side - '0') * (side - '0');
   }
 }

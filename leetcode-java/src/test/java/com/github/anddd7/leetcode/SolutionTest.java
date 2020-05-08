@@ -9,9 +9,14 @@ class SolutionTest {
   void name() {
     Assertions.assertThat(
         Solution.INSTANCE
-            .superPow(2147483647, new int[]{2, 0, 0})
+            .maximalSquare(new char[][]{
+                new char[]{'1', '0', '1', '0', '0'},
+                new char[]{'1', '0', '1', '1', '1'},
+                new char[]{'1', '1', '1', '1', '1'},
+                new char[]{'1', '0', '0', '1', '0'}
+            })
     ).isEqualTo(
-        1198
+        4
     );
   }
 }
