@@ -4,14 +4,43 @@ public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public int rob(int[] nums) {
-    int total = 0;
-    for (int i = 0; i < nums.length; i++) {
-      int fromCurrent = i < 2 ? nums[i] : nums[i] + nums[i - 2];
-      int fromPrevious = i < 1 ? 0 : nums[i - 1];
-      nums[i] = Math.max(fromCurrent, fromPrevious);
-      total = Math.max(total, nums[i]);
+  public static class ListNode {
+
+    int val;
+    ListNode next;
+
+    ListNode(int x) {
+      val = x;
     }
-    return total;
+
+    ListNode(int x, ListNode next) {
+      val = x;
+      this.next = next;
+    }
+  }
+
+
+  public ListNode reverseKGroup(ListNode head, int k) {
+    if (head == null) {
+      return null;
+    }
+    ListNode current = head;
+    for (int i = 0; i < k; i++) {
+      if (current == null) {
+        return head;
+      }
+      current = current.next;
+    }
+
+    ListNode follower = reverseKGroup(current, k);
+
+    current = head;
+    while (k-- > 0) {
+      ListNode next = current.next;
+      current.next = follower;
+      follower = current;
+      current = next;
+    }
+    return follower;
   }
 }
