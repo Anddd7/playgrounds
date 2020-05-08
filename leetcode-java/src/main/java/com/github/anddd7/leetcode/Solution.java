@@ -4,22 +4,14 @@ public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public int maximalSquare(char[][] matrix) {
-    int side = '0';
-    for (int i = 0; i < matrix.length; i++) {
-      for (int j = 0; j < matrix[0].length; j++) {
-        if (matrix[i][j] == '1') {
-          int previous = i == 0 || j == 0 ?
-              '0'
-              : Math.min(
-                  matrix[i - 1][j - 1],
-                  Math.min(matrix[i - 1][j], matrix[i][j - 1])
-              );
-          matrix[i][j] = (char) (1 + previous);
-          side = Math.max(side, matrix[i][j]);
-        }
-      }
+  public int rob(int[] nums) {
+    int total = 0;
+    for (int i = 0; i < nums.length; i++) {
+      int fromCurrent = i < 2 ? nums[i] : nums[i] + nums[i - 2];
+      int fromPrevious = i < 1 ? 0 : nums[i - 1];
+      nums[i] = Math.max(fromCurrent, fromPrevious);
+      total = Math.max(total, nums[i]);
     }
-    return (side - '0') * (side - '0');
+    return total;
   }
 }
