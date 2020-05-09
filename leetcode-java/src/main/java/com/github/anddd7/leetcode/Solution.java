@@ -4,24 +4,19 @@ public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public boolean carPooling(int[][] trips, int capacity) {
-    int[] changes = new int[1001];
+  public int findLength(int[] A, int[] B) {
+    int[][] dp = new int[A.length + 1][B.length + 1];
+    int max = 0;
 
-    for (int[] trip : trips) {
-      int num = trip[0];
-      int start = trip[1];
-      int end = trip[2];
-      changes[start] += num;
-      changes[end] -= num;
-    }
-
-    for (int passenger : changes) {
-      capacity -= passenger;
-      if (capacity < 0) {
-        return false;
+    for (int i = A.length - 1; i >= 0; i--) {
+      for (int j = B.length - 1; j >= 0; j--) {
+        if (A[i] == B[j]) {
+          dp[i][j] = dp[i + 1][j + 1] + 1;
+          max = Math.max(max, dp[i][j]);
+        }
       }
     }
 
-    return true;
+    return max;
   }
 }
