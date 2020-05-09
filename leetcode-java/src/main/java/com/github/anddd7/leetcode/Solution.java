@@ -4,33 +4,24 @@ public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  class RLEIterator {
+  public boolean carPooling(int[][] trips, int capacity) {
+    int[] changes = new int[1001];
 
-    private int[] flags;
-    private int indexOfTime = 0;
-    private int indexOfNumber = 1;
-
-    public RLEIterator(int[] A) {
-      flags = A;
+    for (int[] trip : trips) {
+      int num = trip[0];
+      int start = trip[1];
+      int end = trip[2];
+      changes[start] += num;
+      changes[end] -= num;
     }
 
-    private boolean isEmpty() {
-      return indexOfTime == flags.length;
-    }
-
-    public int next(int n) {
-      while (n > 0 && !isEmpty()) {
-        int time = flags[indexOfTime];
-        if (n > time) {
-          n -= time;
-          indexOfTime += 2;
-          indexOfNumber += 2;
-        } else {
-          flags[indexOfTime] = time - n;
-          return flags[indexOfNumber];
-        }
+    for (int passenger : changes) {
+      capacity -= passenger;
+      if (capacity < 0) {
+        return false;
       }
-      return -1;
     }
+
+    return true;
   }
 }
