@@ -4,43 +4,37 @@ public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public static class ListNode {
-
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-      val = x;
+  public int mySqrt(int x) {
+    int start = 0, end = x;
+    while (start <= end) {
+      int mid = (start + end) / 2;
+      long value = (long) mid * mid;
+      if (value == x) {
+        return mid;
+      }
+      if (value < x) {
+        start = mid + 1;
+      } else {
+        end = mid - 1;
+      }
     }
-
-    ListNode(int x, ListNode next) {
-      val = x;
-      this.next = next;
-    }
+    return end;
   }
 
+//  public int mySqrt(int x) {
+//    return findMySqrt(x, 0, x);
+//  }
 
-  public ListNode reverseKGroup(ListNode head, int k) {
-    if (head == null) {
-      return null;
-    }
-    ListNode current = head;
-    for (int i = 0; i < k; i++) {
-      if (current == null) {
-        return head;
-      }
-      current = current.next;
+  private int findMySqrt(int x, long start, long end) {
+    if (start >= end) {
+      return (int) start;
     }
 
-    ListNode follower = reverseKGroup(current, k);
-
-    current = head;
-    while (k-- > 0) {
-      ListNode next = current.next;
-      current.next = follower;
-      follower = current;
-      current = next;
+    long mid = (start + end + 1) / 2;
+    long value = mid * mid;
+    if (value <= x) {
+      return findMySqrt(x, mid, end);
     }
-    return follower;
+    return findMySqrt(x, start, mid - 1);
   }
 }
