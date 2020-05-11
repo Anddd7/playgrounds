@@ -9,7 +9,7 @@ class SolutionTest {
   void name() {
     Assertions.assertThat(
         Solution.INSTANCE
-            .mySqrt(2147483647)
+            .myPow(2.0, -2147483648)
     ).isEqualTo(
         46340
     );

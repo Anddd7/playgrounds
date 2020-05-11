@@ -4,29 +4,21 @@ public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public class TreeNode {
-
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-      val = x;
+  public double myPow(double x, int n) {
+    if (x == 0 || x == 1) {
+      return x;
     }
+    return n < 0 ? 1.0 / quickMul(x, -n) : quickMul(x, n);
   }
 
-  public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-    if (root == null || root == p || root == q) {
-      return root;
+  private double quickMul(double x, int n) {
+    if (n == 0) {
+      return 1;
     }
-    TreeNode left = lowestCommonAncestor(root.left, p, q);
-    TreeNode right = lowestCommonAncestor(root.right, p, q);
-    if (left == null) {
-      return right;
+    double y = quickMul(x, n / 2);
+    if (n % 2 == 0) {
+      return y * y;
     }
-    if (right == null) {
-      return left;
-    }
-    return root;
+    return x * y * y;
   }
 }
