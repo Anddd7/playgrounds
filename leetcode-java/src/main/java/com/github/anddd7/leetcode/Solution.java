@@ -3,22 +3,48 @@ package com.github.anddd7.leetcode;
 public class Solution {
 
   public static final Solution INSTANCE = new Solution();
+}
 
-  public double myPow(double x, int n) {
-    if (x == 0 || x == 1) {
-      return x;
+class MinStack {
+
+  class Node {
+
+
+    int val;
+    Node next;
+
+    public Node(int val, Node next) {
+      this.val = val;
+      this.next = next;
     }
-    return n < 0 ? 1.0 / quickMul(x, -n) : quickMul(x, n);
   }
 
-  private double quickMul(double x, int n) {
-    if (n == 0) {
-      return 1;
-    }
-    double y = quickMul(x, n / 2);
-    if (n % 2 == 0) {
-      return y * y;
-    }
-    return x * y * y;
+  Node minHead;
+  Node head;
+
+  /**
+   * initialize your data structure here.
+   */
+  public MinStack() {
+
+  }
+
+  public void push(int x) {
+    head = new Node(x, head);
+    int min = minHead == null ? x : Math.min(x, minHead.val);
+    minHead = new Node(min, minHead);
+  }
+
+  public void pop() {
+    head = head.next;
+    minHead = minHead.next;
+  }
+
+  public int top() {
+    return head.val;
+  }
+
+  public int getMin() {
+    return minHead.val;
   }
 }
