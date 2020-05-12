@@ -8,8 +8,7 @@ class SolutionTest {
   @Test
   void name() {
     Assertions.assertThat(
-        Solution.INSTANCE
-            .myPow(2.0, -2147483648)
+        Solution.INSTANCE.regionsBySlashes(new String[]{" /", "  "})
     ).isEqualTo(
         46340
     );
