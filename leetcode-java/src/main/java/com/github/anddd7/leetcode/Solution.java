@@ -4,24 +4,16 @@ public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public int reverseBits(int num) {
-    if (num == 0) {
-      return 1;
+  public int maxProduct(int[] nums) {
+    int max, min, result;
+    max = min = result = nums[0];
+    for (int i = 1; i < nums.length; i++) {
+      int x = max * nums[i];
+      int y = min * nums[i];
+      max = Math.max(nums[i], Math.max(x, y));
+      min = Math.min(nums[i], Math.min(x, y));
+      result = Math.max(max, result);
     }
-
-    int pre = 0, cur = 0;
-    int max = 0;
-
-    while (num > 0) {
-      if ((1 & num) == 1) {
-        cur++;
-      } else {
-        max = Math.max(max, pre + cur + 1);
-        pre = cur;
-        cur = 0;
-      }
-      num >>= 1;
-    }
-    return Math.max(max, pre + cur + 1);
+    return result;
   }
 }
