@@ -1,16 +1,19 @@
 package com.github.anddd7.leetcode;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import java.util.Arrays;
 
 class SolutionTest {
 
-  @Test
-  void name() {
-    Assertions.assertThat(
-        Solution.INSTANCE.regionsBySlashes(new String[]{" /", "  "})
-    ).isEqualTo(
-        46340
+  public static void main(String[] args) {
+    System.out.println(
+        Arrays.toString(
+            Solution.INSTANCE.spiralOrder(new int[][]{
+                    new int[]{1, 2, 3},
+                    new int[]{4, 5, 6},
+                    new int[]{7, 8, 9}
+                }
+            )
+        )
     );
   }
 }
