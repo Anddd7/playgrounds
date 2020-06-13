@@ -1,51 +1,26 @@
 package com.github.anddd7.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public List<List<Integer>> threeSum(int[] nums) {
-    Arrays.sort(nums);
-    List<List<Integer>> result = new ArrayList<>();
-    for (int i = 0; i < nums.length; i++) {
-      // 跳过重复
-      if (i != 0 && nums[i - 1] == nums[i]) {
-        continue;
-      }
-      result.addAll(twoSum(nums, i + 1, -nums[i], nums[i]));
-    }
-    return result;
-  }
+  /**
+   * f(i) = f(i-1) + f(i-2)[1<i<n]
+   * 1 -> 0 1 1 -> 1
+   * 2 -> ... -> 1 1 2 -> 2
+   * 3 -> ... -> 1 2 3 -> 3
+   * 4 -> ... -> 2 3 5 -> 5
+   */
+  public int climbStairs(int n) {
+    int pre2 = 0;
+    int pre1 = 1;
+    int current = 1;
 
-  private List<List<Integer>> twoSum(int[] nums, int start, int expect, int number) {
-    List<List<Integer>> result = new ArrayList<>();
-    int s = start, e = nums.length - 1;
-    while (s < e) {
-      int value = nums[s] + nums[e];
-      if (value < expect) {
-        s++;
-      } else if (value > expect) {
-        e--;
-      } else {
-        result.add(Arrays.asList(number, nums[s], nums[e]));
-        // 跳过重复
-        while (s < e && nums[s] == nums[s + 1]) {
-          s++;
-        }
-        // 寻找下一个解
-        s++;
-        // 跳过重复
-        while (s < e && nums[e] == nums[e - 1]) {
-          e--;
-        }
-        // 寻找下一个解
-        e--;
-      }
+    for (int i = 1; i < n; i++) {
+      pre2 = pre1;
+      pre1 = current;
+      current = pre2 + pre1;
     }
-    return result;
+    return current;
   }
 }
