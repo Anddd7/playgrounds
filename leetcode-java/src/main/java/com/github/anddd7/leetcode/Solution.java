@@ -1,9 +1,7 @@
 package com.github.anddd7.leetcode;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Solution {
 
@@ -20,58 +18,33 @@ public class Solution {
     }
   }
 
-  public String serialize(TreeNode root) {
-    if (root == null) {
-      return "";
+  public TreeNode recoverFromPreorder(String S) {
+    Deque<TreeNode> stack = new LinkedList<>();
+    int i = 0;
+    while (i < S.length()) {
+      int deep = 0;
+      while (S.charAt(i) == '-') {
+        ++deep;
+        ++i;
+      }
+      int value = 0;
+      while (i < S.length() && Character.isDigit(S.charAt(i))) {
+        value = value * 10 + (S.charAt(i) - '0');
+        ++i;
+      }
+      TreeNode node = new TreeNode(value);
+      if (deep == stack.size()) {
+        if (!stack.isEmpty()) {
+          stack.peek().left = node;
+        }
+      } else {
+        while (deep != stack.size()) {
+          stack.pop();
+        }
+        stack.peek().right = node;
+      }
+      stack.push(node);
     }
-    List<String> result = new ArrayList<>();
-    serialize(root, result);
-    return String.join(",", result);
-  }
-
-  private void serialize(TreeNode node, List<String> storage) {
-    if (node != null) {
-      storage.add(String.valueOf(node.val));
-      serialize(node.left, storage);
-      serialize(node.right, storage);
-    } else {
-      storage.add("None");
-    }
-  }
-
-  public TreeNode deserialize(String data) {
-    if (data.isEmpty()) {
-      return null;
-    }
-    String[] strs = data.split(",");
-    TreeNode root = new TreeNode(Integer.parseInt(strs[0]));
-    Deque<TreeNode> stack = new ArrayDeque<>();
-    stack.push(root);
-    deserialize(root, strs, 1);
-    return root;
-  }
-
-  private int deserialize(TreeNode current, String[] strs, int pos) {
-    int leftIndex = pos;
-    String left = strs[leftIndex];
-    int endLeft;
-    if ("None".equals(left)) {
-      endLeft = leftIndex;
-    } else {
-      current.left = new TreeNode(Integer.parseInt(left));
-      endLeft = deserialize(current.left, strs, leftIndex + 1);
-    }
-
-    int rightIndex = endLeft + 1;
-    String right = strs[rightIndex];
-    int endRight;
-    if ("None".equals(right)) {
-      endRight = rightIndex;
-    } else {
-      current.right = new TreeNode(Integer.parseInt(right));
-      endRight = deserialize(current.right, strs, rightIndex + 1);
-    }
-
-    return endRight;
+    return stack.peekLast();
   }
 }
