@@ -4,8 +4,8 @@ class SolutionTest {
 
   public static void main(String[] args) {
     System.out.println(
-        Solution.INSTANCE.isPalindrome(
-            "A man, a plan, a canal: Panama"
+        Solution.INSTANCE.addBinary(
+            "11", "1011"
         )
     );
   }

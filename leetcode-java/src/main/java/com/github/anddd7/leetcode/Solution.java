@@ -4,26 +4,29 @@ public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public boolean isPalindrome(String s) {
-    if (s.isEmpty()) {
-      return true;
-    }
-    int x = 0, y = s.length() - 1;
-    while (x < y) {
-      int front = s.codePointAt(x);
-      int end = s.codePointAt(y);
+  public String addBinary(String a, String b) {
+    StringBuilder result = new StringBuilder();
+    int next = 0;
+    int pos = 0;
+    while (pos < a.length() || pos < b.length()) {
+      int posA = a.length() - 1 - pos;
+      int posB = b.length() - 1 - pos;
 
-      if (!Character.isLetterOrDigit(front)) {
-        x++;
-      } else if (!Character.isLetterOrDigit(end)) {
-        y--;
-      } else if (Character.toLowerCase(front) == Character.toLowerCase(end)) {
-        x++;
-        y--;
-      } else {
-        return false;
-      }
+      int x = posA < 0 ? 0 : a.charAt(posA) - '0';
+      int y = posB < 0 ? 0 : b.charAt(posB) - '0';
+
+      int rest = (x + y + next) >> 1;
+      int value = (x + y + next) & 1;
+
+      result.append(value);
+      next = rest;
+      pos++;
     }
-    return true;
+
+    if (next != 0) {
+      result.append(next);
+    }
+
+    return result.reverse().toString();
   }
 }
