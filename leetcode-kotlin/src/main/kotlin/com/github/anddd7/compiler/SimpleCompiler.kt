@@ -2,6 +2,9 @@ package com.github.anddd7.compiler
 
 import java.util.TreeMap
 
+/**
+ * 解释器
+ */
 class SimpleCompiler(private val source: String) {
   private var lastPos = 0
   private var line = 0
@@ -36,9 +39,16 @@ class SimpleCompiler(private val source: String) {
           while (source[lastPos].isDigit()) {
             value = value * 10 + (source[lastPos++] - '0')
           }
-          symbols[symbols.lastKey()] = value
         }
-        return Token.Num
+        return value
+      }
+      // parse string literal, currently, the only supported escape
+      else if (source[lastPos] == '"') {
+        val startPos = lastPos++
+        while (source[lastPos] != '"') {
+          lastPos++
+        }
+        return source.substring(startPos + 1, lastPos++)
       }
       // parse '==' and '='
       else if (source[lastPos] == '=') {

@@ -29,11 +29,14 @@ internal class SimpleCompilerTest {
 
     assertThat(simpleCompiler.next()).isEqualTo(Token.Id)
     assertThat(simpleCompiler.next()).isEqualTo(Token.Assign)
-    assertThat(simpleCompiler.next()).isEqualTo(Token.Num)
+    assertThat(simpleCompiler.next()).isEqualTo(1000)
     assertThat(simpleCompiler.next()).isEqualTo(';')
-    assertThat(simpleCompiler.lexicalSymbols()).containsEntry(
-      "abc_identifier_3",
-      1000
-    )
+  }
+
+  @Test
+  fun `should parse String successful`() {
+    val simpleCompiler = SimpleCompiler("\"test\"")
+
+    assertThat(simpleCompiler.next()).isEqualTo("test")
   }
 }
