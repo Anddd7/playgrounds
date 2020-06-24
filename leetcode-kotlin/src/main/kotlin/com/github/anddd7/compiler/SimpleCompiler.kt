@@ -1,14 +1,16 @@
 package com.github.anddd7.compiler
 
+import java.util.TreeMap
+
 class SimpleCompiler(private val source: String) {
   private var lastPos = 0
   private var line = 0
-  private val symbols = mutableMapOf<String, Any>()
+  private val symbols = TreeMap<String, Any>()
 
   /**
    * lexical analysis
    */
-  fun next(): Token {
+  fun next(): Any {
     while (lastPos < source.length) {
       // ignore newline
       if (source[lastPos] == '\n') {
@@ -21,14 +23,46 @@ class SimpleCompiler(private val source: String) {
         while (source[lastPos].isLetter() || source[lastPos] == '_') {
           lastPos++
         }
-        val name = source.substring(startPos, lastPos + 1)
+        val name = source.substring(startPos, ++lastPos)
         symbols.getOrPut(name) { name }
         return Token.Id
+      }
+      // Number
+      else if (source[lastPos].isDigit()) {
+        val first = source[lastPos++]
+        var value = first - '0'
+        // decimal
+        if (first != '0') {
+          while (source[lastPos].isDigit()) {
+            value = value * 10 + (source[lastPos++] - '0')
+          }
+          symbols[symbols.lastKey()] = value
+        }
+        return Token.Num
+      }
+      // parse '==' and '='
+      else if (source[lastPos] == '=') {
+        if (source[++lastPos] == '=') {
+          return Token.Eq;
+        }
+        return Token.Assign
+      }
+      // directly return the character as token
+      else if (
+        source[lastPos] == '~' || source[lastPos] == ';' ||
+        source[lastPos] == '{' || source[lastPos] == '}' ||
+        source[lastPos] == '(' || source[lastPos] == ')' ||
+        source[lastPos] == ']' || source[lastPos] == ',' ||
+        source[lastPos] == ':'
+      ) {
+        return source[lastPos++]
       }
     }
     // EOF
     return Token.EOF
   }
+
+  internal fun lexicalSymbols() = symbols.toMap()
 
   fun program() {
     TODO()
