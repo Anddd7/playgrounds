@@ -4,9 +4,9 @@ class SolutionTest {
 
   public static void main(String[] args) {
     System.out.println(
-        Solution.INSTANCE.minSubArrayLen(
-            7,
-            new int[]{2, 3, 1, 2, 4, 3}
+        Solution.INSTANCE.findKthLargest(
+            new int[]{3, 2, 1, 5, 6, 4},
+            2
         )
     );
   }

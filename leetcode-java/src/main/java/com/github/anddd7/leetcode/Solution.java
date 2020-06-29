@@ -1,26 +1,24 @@
 package com.github.anddd7.leetcode;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public int minSubArrayLen(int s, int[] nums) {
-    int start = 0, end = 0;
-    int current = 0;
-    int minLength = nums.length + 1;
-
-    while (end < nums.length) {
-      int total = current + nums[end];
-      int length = end + 1 - start;
-      if (total >= s) {
-        minLength = Math.min(minLength, length);
-        current = current - nums[start++];
+  public int findKthLargest(int[] nums, int k) {
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>(k, Comparator.comparingInt(a -> a));
+    for (int num : nums) {
+      if (minHeap.size() < k) {
+        minHeap.add(num);
       } else {
-        current = total;
-        end++;
+        if (num > minHeap.peek()) {
+          minHeap.poll();
+          minHeap.add(num);
+        }
       }
     }
-
-    return minLength > nums.length ? 0 : minLength;
+    return minHeap.peek();
   }
 }
