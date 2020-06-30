@@ -1,12 +1,19 @@
 package com.github.anddd7.leetcode;
 
+import java.util.Arrays;
+
 class SolutionTest {
 
   public static void main(String[] args) {
     System.out.println(
-        CQueue.INSTANCE.findKthLargest(
-            new int[]{3, 2, 1, 5, 6, 4},
-            2
+        Solution.INSTANCE.peopleIndexes(
+            Arrays.asList(
+                Arrays.asList("leetcode", "google", "facebook"),
+                Arrays.asList("google", "microsoft"),
+                Arrays.asList("google", "facebook"),
+                Arrays.asList("google"),
+                Arrays.asList("amazon")
+            )
         )
     );
   }
