@@ -1,5 +1,6 @@
 package com.github.anddd7.coroutine;
 
+import com.github.anddd7.coroutine.continuation.FinalContinuation;
 import java.util.Deque;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -34,38 +35,45 @@ public class CoroutineDispatcher {
 
     while (true) {
       if (continuations.isEmpty()) {
-        log.info("empty queue, skip");
-        try {
-          Thread.sleep(100);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
+        rest4While();
       } else {
         Continuation continuation = continuations.pop();
-        log.info("find a continuation, submit");
-
-        executor.submit(wrapTask(continuation));
+        if (continuation.isSuspended()) {
+          dispatch(continuation);
+        } else {
+          log.info("find a live continuation, submit");
+          executor.submit(wrapTask(continuation));
+        }
       }
+    }
+  }
+
+  private void rest4While() {
+    try {
+      Thread.sleep(100);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
   }
 
   private Runnable wrapTask(Continuation continuation) {
     return () -> {
-      log.info("start task");
-      Continuation next = continuation.resumeWith();
+      Continuation next = continuation.resumeWith(null);
       if (next != null) {
         dispatch(next);
-      }
-      if (continuation.isCompleted()) {
-        log.info("task is completed");
       }
     };
   }
 
-  public CompletableFuture<Object> dispatch(Continuation continuation) {
-    log.info("dispatch a new continuation");
+  public void dispatch(Continuation continuation) {
+    continuations.add(continuation);
+  }
+
+  public CompletableFuture<Object> start(ContinuationImpl continuation) {
+    FinalContinuation finalContinuation = new FinalContinuation();
+    continuation.setCompletion(finalContinuation);
     continuation.setDispatcher(this);
     continuations.add(continuation);
-    return continuation.getHook();
+    return finalContinuation.getHook();
   }
 }

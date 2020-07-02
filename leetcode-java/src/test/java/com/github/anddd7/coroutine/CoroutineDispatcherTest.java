@@ -1,5 +1,6 @@
 package com.github.anddd7.coroutine;
 
+import com.github.anddd7.coroutine.continuation.DelayContinuation;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -16,64 +17,63 @@ class CoroutineDispatcherTest {
     /*
     int test() {
       int result = blocking {
-        int count = getCount();
-        count = increase(count);
-        count = increase(count);
+        delay(500)
+        int count = 1;
+        count = number+1;
+        count = number+1;
         return count;
       };
       return result;
     }
-    coroutine getCount(){
-      delay(500);
-      return 1;
-    }
-    coroutine increase(int number){
-      return number+1;
-    }
     */
 
-    Continuation task = new Continuation() {
+    ContinuationImpl task = new ContinuationImpl() {
       private int state = 0;
       private final ConcurrentMap<String, Object> data = new ConcurrentHashMap<>();
-      private CompletableFuture<Object> suspend;
+      private Object result;
 
       @Override
-      public Continuation resumeWith() {
+      public Continuation resumeWith(Continuation continuation) {
+        setSuspended(false);
         switch (state) {
-          // int count = getCount();
           case 0:
             System.out.println(Thread.currentThread().getName() + ": getCount");
-            CompletableFuture<Object> suspendCall = getDispatcher()
-                .dispatch(new DelayContinuation());
-            suspend = suspendCall;
-            state = 11;
-            return this;
-          case 11:
-            if (suspend.isDone()) {
-              data.put("number", 1);
-              state = 1;
-            }
+            data.put("number", 1);
+            state += 1;
             return this;
           case 1:
-            System.out.println(Thread.currentThread().getName() + ": increase");
-            data.compute("number", (key, value) -> (int) value + 1);
+            ContinuationImpl delay = new DelayContinuation();
+            delay.setDispatcher(getDispatcher());
+            delay.setCompletion(this);
+            getDispatcher().dispatch(delay);
+            setSuspended(true);
             state += 1;
             return this;
           case 2:
             System.out.println(Thread.currentThread().getName() + ": increase");
             data.compute("number", (key, value) -> (int) value + 1);
+            state += 1;
+            return this;
+          case 3:
+            System.out.println(Thread.currentThread().getName() + ": increase");
+            data.compute("number", (key, value) -> (int) value + 1);
           default:
             System.out.println(Thread.currentThread().getName() + ": finished");
-            complete(data.get("number"));
+            result = data.get("number");
+            complete();
             return null;
         }
+      }
+
+      @Override
+      public Object getResult() {
+        return result;
       }
     };
 
     dispatcher = new CoroutineDispatcher();
 
-    // blocking
-    CompletableFuture<Object> future = dispatcher.dispatch(task);
-    future.get();
+    CompletableFuture<Object> blocking = dispatcher.start(task);
+    blocking.get();
   }
 }
