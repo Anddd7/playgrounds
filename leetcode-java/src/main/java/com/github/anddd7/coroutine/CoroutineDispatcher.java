@@ -1,6 +1,7 @@
 package com.github.anddd7.coroutine;
 
 import java.util.Deque;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -55,12 +56,15 @@ public class CoroutineDispatcher {
       if (next != null) {
         dispatch(next);
       }
+      if (continuation.isCompleted()) {
+        log.info("task is completed");
+      }
     };
   }
 
-  public void dispatch(Continuation continuation) {
+  public CompletableFuture<Object> dispatch(Continuation continuation) {
     log.info("dispatch a new continuation");
-
     continuations.add(continuation);
+    return continuation.getHook();
   }
 }
