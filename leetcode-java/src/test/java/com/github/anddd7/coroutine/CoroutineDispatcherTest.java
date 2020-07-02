@@ -24,23 +24,35 @@ class CoroutineDispatcherTest {
       return result;
     }
     coroutine getCount(){
+      delay(500);
       return 1;
     }
     coroutine increase(int number){
       return number+1;
     }
     */
+
     Continuation task = new Continuation() {
       private int state = 0;
       private final ConcurrentMap<String, Object> data = new ConcurrentHashMap<>();
+      private CompletableFuture<Object> suspend;
 
       @Override
       public Continuation resumeWith() {
         switch (state) {
+          // int count = getCount();
           case 0:
             System.out.println(Thread.currentThread().getName() + ": getCount");
-            data.put("number", 1);
-            state += 1;
+            CompletableFuture<Object> suspendCall = getDispatcher()
+                .dispatch(new DelayContinuation());
+            suspend = suspendCall;
+            state = 11;
+            return this;
+          case 11:
+            if (suspend.isDone()) {
+              data.put("number", 1);
+              state = 1;
+            }
             return this;
           case 1:
             System.out.println(Thread.currentThread().getName() + ": increase");
@@ -51,6 +63,7 @@ class CoroutineDispatcherTest {
             System.out.println(Thread.currentThread().getName() + ": increase");
             data.compute("number", (key, value) -> (int) value + 1);
           default:
+            System.out.println(Thread.currentThread().getName() + ": finished");
             complete(data.get("number"));
             return null;
         }
@@ -58,6 +71,8 @@ class CoroutineDispatcherTest {
     };
 
     dispatcher = new CoroutineDispatcher();
+
+    // blocking
     CompletableFuture<Object> future = dispatcher.dispatch(task);
     future.get();
   }

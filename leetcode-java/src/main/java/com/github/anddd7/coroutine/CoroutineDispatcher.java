@@ -64,6 +64,7 @@ public class CoroutineDispatcher {
 
   public CompletableFuture<Object> dispatch(Continuation continuation) {
     log.info("dispatch a new continuation");
+    continuation.setDispatcher(this);
     continuations.add(continuation);
     return continuation.getHook();
   }
