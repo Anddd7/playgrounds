@@ -1,19 +1,16 @@
 package com.github.anddd7.leetcode;
 
-import java.util.Arrays;
-
 class SolutionTest {
 
   public static void main(String[] args) {
     System.out.println(
-        Solution.INSTANCE.peopleIndexes(
-            Arrays.asList(
-                Arrays.asList("leetcode", "google", "facebook"),
-                Arrays.asList("google", "microsoft"),
-                Arrays.asList("google", "facebook"),
-                Arrays.asList("google"),
-                Arrays.asList("amazon")
-            )
+        Solution.INSTANCE.kthSmallest(
+            new int[][]{
+                new int[]{1, 5, 9},
+                new int[]{10, 11, 13},
+                new int[]{12, 13, 15}
+            },
+            8
         )
     );
   }

@@ -1,83 +1,54 @@
 package com.github.anddd7.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public List<Integer> peopleIndexes(List<List<String>> favoriteCompanies) {
-    List<Integer> result = new ArrayList<>();
-    List<Set<String>> favorites = favoriteCompanies.stream()
-        .map(HashSet::new)
-        .collect(Collectors.toList());
-
-    for (int i = 0; i < favorites.size(); i++) {
-      Set<String> left = favorites.get(i);
-      boolean isNotSub = true;
-      for (int j = 0; j < favorites.size(); j++) {
-        if (i == j) {
-          continue;
-        }
-        Set<String> right = favorites.get(j);
-
-        // left {= right
-        if (left.size() <= right.size() && right.containsAll(left)) {
-          isNotSub = false;
-          break;
-        }
-      }
-      if (isNotSub) {
-        result.add(i);
-      }
+  public int kthSmallest(int[][] matrix, int k) {
+    int length = matrix.length * matrix[0].length;
+    if (k < length >> 1) {
+      return getKthSmallest(matrix, k);
+    } else {
+      return getKthLargest(matrix, length - k + 1);
     }
-
-    return result;
   }
 
-  public List<Integer> peopleIndexes_2(List<List<String>> favoriteCompanies) {
-    int[] parents = new int[favoriteCompanies.size()];
-    for (int i = 0; i < parents.length; i++) {
-      parents[i] = i;
-    }
-
-    List<Set<String>> favorites = favoriteCompanies.stream()
-        .map(HashSet::new)
-        .collect(Collectors.toList());
-
-    for (int i = 0; i < favorites.size() - 1; i++) {
-      if (parents[i] != i) {
-        continue;
-      }
-      for (int j = i + 1; j < favorites.size(); j++) {
-        if (parents[j] != j) {
-          continue;
+  private int getKthSmallest(int[][] matrix, int k) {
+    PriorityQueue<Integer> heap = new PriorityQueue<>(k, (a, b) -> b - a);
+    for (int[] line : matrix) {
+      for (int item : line) {
+        if (heap.size() == k) {
+          if (heap.peek() > item) {
+            heap.poll();
+          } else {
+            break;
+          }
         }
-        Set<String> left = favorites.get(i);
-        Set<String> right = favorites.get(j);
-        // right =} left
-        if (left.size() <= right.size() && right.containsAll(left)) {
-          parents[i] = j;
-          break;
-        }
-        // left =} right
-        else if (left.size() >= right.size() && left.containsAll(right)) {
-          parents[j] = i;
-        }
-        // left x right
+        heap.add(item);
       }
     }
+    return heap.peek();
+  }
 
-    List<Integer> indexes = new ArrayList<>();
-    for (int i = 0; i < parents.length; i++) {
-      if (parents[i] == i) {
-        indexes.add(i);
+  private int getKthLargest(int[][] matrix, int k) {
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>(k, Comparator.comparingInt(a -> a));
+    for (int i = matrix.length - 1; i >= 0; i--) {
+      int[] line = matrix[i];
+      for (int j = line.length - 1; j >= 0; j--) {
+        int item = line[j];
+        if (minHeap.size() == k) {
+          if (minHeap.peek() < item) {
+            minHeap.poll();
+          } else {
+            break;
+          }
+        }
+        minHeap.add(item);
       }
     }
-    return indexes;
+    return minHeap.peek();
   }
 }
