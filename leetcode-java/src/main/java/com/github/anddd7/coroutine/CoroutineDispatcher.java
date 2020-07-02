@@ -6,8 +6,12 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CoroutineDispatcher {
+
+  private static final Logger log = LoggerFactory.getLogger(CoroutineDispatcher.class);
 
   private final ExecutorService executor;
   private final Deque<Continuation> continuations;
@@ -24,20 +28,12 @@ public class CoroutineDispatcher {
     scheduler.start();
   }
 
-  private void log(String msg) {
-    System.out.printf(
-        "[%s]%s%n",
-        Thread.currentThread().getName(),
-        msg
-    );
-  }
-
   private void tryResume() {
-    log("start scanning continuation queue");
+    log.info("start scanning continuation queue");
 
     while (true) {
       if (continuations.isEmpty()) {
-        log("empty queue, skip");
+        log.info("empty queue, skip");
         try {
           Thread.sleep(100);
         } catch (InterruptedException e) {
@@ -45,7 +41,7 @@ public class CoroutineDispatcher {
         }
       } else {
         Continuation continuation = continuations.pop();
-        log("find a continuation, submit");
+        log.info("find a continuation, submit");
 
         executor.submit(wrapTask(continuation));
       }
@@ -54,13 +50,16 @@ public class CoroutineDispatcher {
 
   private Runnable wrapTask(Continuation continuation) {
     return () -> {
-      log("start task");
-      continuation.getRunnable().run();
+      log.info("start task");
+      Continuation next = continuation.resumeWith(null);
+      if (next != null) {
+        dispatch(next);
+      }
     };
   }
 
   public void dispatch(Continuation continuation) {
-    log("dispatch a new continuation");
+    log.info("dispatch a new continuation");
 
     continuations.add(continuation);
   }

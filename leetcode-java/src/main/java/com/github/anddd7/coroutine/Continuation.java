@@ -1,16 +1,18 @@
 package com.github.anddd7.coroutine;
 
-public class Continuation {
+public abstract class Continuation {
 
   private volatile boolean resumable;
-  private Runnable runnable;
 
-  public Continuation(Runnable block) {
-    this(block, true);
+  public Continuation() {
+    this(true);
   }
 
-  public Continuation(Runnable block, boolean resumable) {
-    this.runnable = block;
+  public Continuation(boolean resumable) {
+    this.resumable = resumable;
+  }
+
+  public void setResumable(boolean resumable) {
     this.resumable = resumable;
   }
 
@@ -18,7 +20,7 @@ public class Continuation {
     return resumable;
   }
 
-  public Runnable getRunnable() {
-    return runnable;
+  public Continuation resumeWith(Object parameters) {
+    throw new UnsupportedOperationException("You have to override this via extending continuation");
   }
 }
