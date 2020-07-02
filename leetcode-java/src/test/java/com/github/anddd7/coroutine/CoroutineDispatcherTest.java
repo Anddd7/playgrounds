@@ -8,30 +8,30 @@ class CoroutineDispatcherTest {
 
   @Test
   public void should_resume_the_task_after_dispatched() throws InterruptedException {
-    Continuation finalTask = new Continuation() {
+    Continuation task = new Continuation() {
+      private int state = 0;
+
       @Override
-      public Continuation resumeWith(Object parameters) {
-        System.out.println(Thread.currentThread().getName() + ": final task");
-        return null;
-      }
-    };
-    Continuation secondTask = new Continuation() {
-      @Override
-      public Continuation resumeWith(Object parameters) {
-        System.out.println(Thread.currentThread().getName() + ": second task");
-        return finalTask;
-      }
-    };
-    Continuation firstTask = new Continuation() {
-      @Override
-      public Continuation resumeWith(Object parameters) {
-        System.out.println(Thread.currentThread().getName() + ": first task");
-        return secondTask;
+      public Continuation resumeWith() {
+        switch (state) {
+          case 0:
+            System.out.println(Thread.currentThread().getName() + ": first task");
+            state += 1;
+            return this;
+          case 1:
+            System.out.println(Thread.currentThread().getName() + ": second task");
+            state += 1;
+            return this;
+          case 2:
+            System.out.println(Thread.currentThread().getName() + ": final task");
+          default:
+            return null;
+        }
       }
     };
 
     dispatcher = new CoroutineDispatcher();
-    dispatcher.dispatch(firstTask);
+    dispatcher.dispatch(task);
 
     // block main thread
     Thread.sleep(10000);

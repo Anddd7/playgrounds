@@ -20,7 +20,7 @@ public abstract class Continuation {
     return resumable;
   }
 
-  public Continuation resumeWith(Object parameters) {
+  public Continuation resumeWith() {
     throw new UnsupportedOperationException("You have to override this via extending continuation");
   }
 }

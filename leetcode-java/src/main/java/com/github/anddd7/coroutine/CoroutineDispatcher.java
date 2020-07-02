@@ -51,7 +51,7 @@ public class CoroutineDispatcher {
   private Runnable wrapTask(Continuation continuation) {
     return () -> {
       log.info("start task");
-      Continuation next = continuation.resumeWith(null);
+      Continuation next = continuation.resumeWith();
       if (next != null) {
         dispatch(next);
       }
