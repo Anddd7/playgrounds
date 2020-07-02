@@ -15,11 +15,11 @@ public class DelayContinuation extends ContinuationImpl {
   public Continuation resumeWith(Continuation continuation) {
     switch (state) {
       case 0:
-        try {
+       /* try {
           Thread.sleep(time);
         } catch (InterruptedException e) {
           e.printStackTrace();
-        }
+        }*/
         state += 1;
         return this;
       default:

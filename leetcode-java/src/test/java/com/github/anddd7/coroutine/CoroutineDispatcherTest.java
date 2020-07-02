@@ -45,6 +45,7 @@ class CoroutineDispatcherTest {
             ContinuationImpl delay = new DelayContinuation();
             delay.setDispatcher(getDispatcher());
             delay.setCompletion(this);
+            // dispatch with scheduled time
             getDispatcher().dispatch(delay);
             setSuspended(true);
             state += 1;
