@@ -1,54 +1,39 @@
 package com.github.anddd7.leetcode;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
-
 public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public int kthSmallest(int[][] matrix, int k) {
-    int length = matrix.length * matrix[0].length;
-    if (k < length >> 1) {
-      return getKthSmallest(matrix, k);
-    } else {
-      return getKthLargest(matrix, length - k + 1);
+  public class TreeNode {
+
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+      val = x;
     }
   }
 
-  private int getKthSmallest(int[][] matrix, int k) {
-    PriorityQueue<Integer> heap = new PriorityQueue<>(k, (a, b) -> b - a);
-    for (int[] line : matrix) {
-      for (int item : line) {
-        if (heap.size() == k) {
-          if (heap.peek() > item) {
-            heap.poll();
-          } else {
-            break;
-          }
-        }
-        heap.add(item);
-      }
-    }
-    return heap.peek();
+  public TreeNode sortedArrayToBST(int[] nums) {
+    return getTree(nums, 0, nums.length - 1);
   }
 
-  private int getKthLargest(int[][] matrix, int k) {
-    PriorityQueue<Integer> minHeap = new PriorityQueue<>(k, Comparator.comparingInt(a -> a));
-    for (int i = matrix.length - 1; i >= 0; i--) {
-      int[] line = matrix[i];
-      for (int j = line.length - 1; j >= 0; j--) {
-        int item = line[j];
-        if (minHeap.size() == k) {
-          if (minHeap.peek() < item) {
-            minHeap.poll();
-          } else {
-            break;
-          }
-        }
-        minHeap.add(item);
-      }
+  public TreeNode getTree(int[] nums, int start, int end) {
+    if (start == end) {
+      return new TreeNode(nums[start]);
     }
-    return minHeap.peek();
+    if (start > end) {
+      return null;
+    }
+
+    // 顶点向右靠
+//    int parentIndex = (start + end + 1) >> 1;
+    // 顶点向左靠
+    int parentIndex = (start + end) >> 1;
+    TreeNode parent = new TreeNode(nums[parentIndex]);
+    parent.left = getTree(nums, start, parentIndex - 1);
+    parent.right = getTree(nums, parentIndex + 1, end);
+    return parent;
   }
 }
