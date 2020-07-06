@@ -20,3 +20,42 @@ func Test_uniquePathsWithObstacles(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_minDeletionSize(t *testing.T) {
+	inputs := []string{
+		"vqyoysnpxbjiitandmvugsqpfmggkv",
+		"uzdfeclxepjzfecmsxrqqkcomtrnvm",
+		"yvhwrsapfffwehdmvqwxstgeexfeua",
+		"awjymwysjpazpgdeqtvdiebfwuapin",
+		"odhihlbvsnximvdwqntdeqptigiyik",
+		"qtrfpwiilxskcieilfvarqbnpdxham",
+		"whvrqkdwuzbcaagsmlfvfbeataygud",
+		"kncwqrmejjmhtfhppsrdmzqperwlww",
+		"hgphuwaumjjibzhvvejpniopjxizie",
+		"bxvccswqevnudqicgrvjecfqpeppob",
+		"nnmvncnpbksdjyjjelsjizliicxpgz",
+		"oifmofrkbgpxlhkcbibwaoiygmqqio",
+		"ekdfyvsumngcfjlydgpmhgjjyfovfi",
+		"fyqryrpkvauhkylmfzhuasjxpqrohx",
+		"rdvjglvpavzdmtobnpjfwdwivhrpsj",
+		"zahrkuiejecndfprwysunznialtfok",
+		"jlrgpfdptlolmlqoophhciiqjnxdkh",
+		"bhbsdukebqvvemrcunboipprcbrfcl",
+		"kreyeyvsmufolvsrzdyeqpuqlieeij",
+		"vgosaxsfnbsndstjohgyknyionhoga",
+		"igmnlibpadandgtugbgxpxwlqbknmv",
+		"mjdbxxprxbjegvtthlrenhfpdlamww",
+		"qfssehellhvqyntozbrizixptppfpr",
+		"utghfndlcturahtcvmqrjyxqfhrsxt",
+		"xvminqhybbiadetniqfwubqxmjokjv",
+		"udfckncwvhcrmxtbkqbqqptymlqnss",
+		"gwwcmterazvyakuvwtyhthfiohlywq",
+		"mpieryurvarojfvhfbbcwepdeoedri",
+		"lpaonsugmlzuweyvrrlgwwdjsgwmoh",
+		"kexyawgkinwvjvzwvofqlthmhaicgs",
+	}
+
+	result := minDeletionSize(inputs)
+
+	fmt.Println(result)
+}

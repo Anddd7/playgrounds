@@ -4,13 +4,39 @@ class SolutionTest {
 
   public static void main(String[] args) {
     System.out.println(
-        Solution.INSTANCE.kthSmallest(
-            new int[][]{
-                new int[]{1, 5, 9},
-                new int[]{10, 11, 13},
-                new int[]{12, 13, 15}
-            },
-            8
+        Solution.INSTANCE.minDeletionSize(
+            new String[]{
+                "vqyoysnpxbjiitandmvugsqpfmggkv",
+                "uzdfeclxepjzfecmsxrqqkcomtrnvm",
+                "yvhwrsapfffwehdmvqwxstgeexfeua",
+                "awjymwysjpazpgdeqtvdiebfwuapin",
+                "odhihlbvsnximvdwqntdeqptigiyik",
+                "qtrfpwiilxskcieilfvarqbnpdxham",
+                "whvrqkdwuzbcaagsmlfvfbeataygud",
+                "kncwqrmejjmhtfhppsrdmzqperwlww",
+                "hgphuwaumjjibzhvvejpniopjxizie",
+                "bxvccswqevnudqicgrvjecfqpeppob",
+                "nnmvncnpbksdjyjjelsjizliicxpgz",
+                "oifmofrkbgpxlhkcbibwaoiygmqqio",
+                "ekdfyvsumngcfjlydgpmhgjjyfovfi",
+                "fyqryrpkvauhkylmfzhuasjxpqrohx",
+                "rdvjglvpavzdmtobnpjfwdwivhrpsj",
+                "zahrkuiejecndfprwysunznialtfok",
+                "jlrgpfdptlolmlqoophhciiqjnxdkh",
+                "bhbsdukebqvvemrcunboipprcbrfcl",
+                "kreyeyvsmufolvsrzdyeqpuqlieeij",
+                "vgosaxsfnbsndstjohgyknyionhoga",
+                "igmnlibpadandgtugbgxpxwlqbknmv",
+                "mjdbxxprxbjegvtthlrenhfpdlamww",
+                "qfssehellhvqyntozbrizixptppfpr",
+                "utghfndlcturahtcvmqrjyxqfhrsxt",
+                "xvminqhybbiadetniqfwubqxmjokjv",
+                "udfckncwvhcrmxtbkqbqqptymlqnss",
+                "gwwcmterazvyakuvwtyhthfiohlywq",
+                "mpieryurvarojfvhfbbcwepdeoedri",
+                "lpaonsugmlzuweyvrrlgwwdjsgwmoh",
+                "kexyawgkinwvjvzwvofqlthmhaicgs"
+            }
         )
     );
   }

@@ -1,39 +1,50 @@
 package com.github.anddd7.leetcode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Solution {
 
   public static final Solution INSTANCE = new Solution();
 
-  public class TreeNode {
-
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-      val = x;
-    }
+  public int minDeletionSize(String[] A) {
+    List<List<String>> groups = new ArrayList<>();
+    groups.add(Arrays.asList(A));
+    return deletableColumns(groups, 0, A[0].length());
   }
 
-  public TreeNode sortedArrayToBST(int[] nums) {
-    return getTree(nums, 0, nums.length - 1);
-  }
-
-  public TreeNode getTree(int[] nums, int start, int end) {
-    if (start == end) {
-      return new TreeNode(nums[start]);
+  private int deletableColumns(List<List<String>> groups, int index, int length) {
+    if (groups.isEmpty()) {
+      return 0;
     }
-    if (start > end) {
-      return null;
+    if (index == length) {
+      return 0;
     }
 
-    // 顶点向右靠
-//    int parentIndex = (start + end + 1) >> 1;
-    // 顶点向左靠
-    int parentIndex = (start + end) >> 1;
-    TreeNode parent = new TreeNode(nums[parentIndex]);
-    parent.left = getTree(nums, start, parentIndex - 1);
-    parent.right = getTree(nums, parentIndex + 1, end);
-    return parent;
+    List<List<String>> nextGroups = new ArrayList<>();
+
+    for (int i = 0; i < groups.size(); i++) {
+      List<String> strs = groups.get(i);
+
+      for (int line = 1; line < strs.size(); line++) {
+        char pre = strs.get(line - 1).charAt(index);
+        char current = strs.get(line).charAt(index);
+        if (current < pre) {
+          return 1 + deletableColumns(groups, index + 1, length);
+        }
+        if (current == pre) {
+          int start = line - 1;
+          while (line + 1 < strs.size() && strs.get(line + 1).charAt(index) == current) {
+            line++;
+          }
+          nextGroups.add(
+              strs.subList(start, line + 1)
+          );
+        }
+      }
+    }
+
+    return deletableColumns(nextGroups, index + 1, length);
   }
 }
