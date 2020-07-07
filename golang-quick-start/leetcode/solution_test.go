@@ -56,3 +56,13 @@ func Test_hasPathSum(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_thirdMax(t *testing.T) {
+	inputs := []int{
+		1, 2, -2147483648,
+	}
+
+	result := thirdMax(inputs)
+
+	fmt.Println(result)
+}
