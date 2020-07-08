@@ -66,3 +66,9 @@ func Test_thirdMax(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_divingBoard(t *testing.T) {
+	result := divingBoard(1, 2, 3)
+
+	fmt.Println(result)
+}
