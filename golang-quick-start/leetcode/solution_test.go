@@ -72,3 +72,14 @@ func Test_divingBoard(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_respace(t *testing.T) {
+	result := respace(
+		[]string{
+			"looked", "just", "like", "her", "brother",
+		},
+		"jesslookedjustliketimherbrother",
+	)
+
+	fmt.Println(result)
+}
