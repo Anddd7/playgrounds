@@ -83,3 +83,13 @@ func Test_respace(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_maxProfit(t *testing.T) {
+	result := maxProfit(
+		[]int{
+			1, 2, 3,
+		},
+	)
+
+	fmt.Println(result)
+}
