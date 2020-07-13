@@ -93,3 +93,12 @@ func Test_maxProfit(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_intersect(t *testing.T) {
+	result := intersect(
+		[]int{4, 9, 5},
+		[]int{9, 4, 9, 8, 4},
+	)
+
+	fmt.Println(result)
+}
