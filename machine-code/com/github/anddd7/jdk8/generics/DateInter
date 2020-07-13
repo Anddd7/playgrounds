@@ -1,0 +1,49 @@
+Compiled from "DateInter.java"
+public class com.github.anddd7.jdk8.generics.DateInter extends com.github.anddd7.jdk8.generics.Pair<java.util.Date> {
+  public com.github.anddd7.jdk8.generics.DateInter(java.util.Date);
+    descriptor: (Ljava/util/Date;)V
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokespecial #1                  // Method com/github/anddd7/jdk8/generics/Pair."<init>":(Ljava/lang/Object;)V
+       5: return
+
+  public java.util.Date getObj();
+    descriptor: ()Ljava/util/Date;
+    Code:
+       0: aload_0
+       1: invokespecial #2                  // Method com/github/anddd7/jdk8/generics/Pair.getObj:()Ljava/lang/Object;
+       4: checkcast     #3                  // class java/util/Date
+       7: areturn
+
+  public void setObj(java.util.Date);
+    descriptor: (Ljava/util/Date;)V
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokespecial #4                  // Method com/github/anddd7/jdk8/generics/Pair.setObj:(Ljava/lang/Object;)V
+       5: return
+
+  public static void main(java.lang.String[]) throws java.io.IOException;
+    descriptor: ([Ljava/lang/String;)V
+    Code:
+       0: ldc           #5                  // class com/github/anddd7/jdk8/generics/DateInter
+       2: invokestatic  #6                  // Method com/github/anddd7/utils/JavaCommandLineTool.javap:(Ljava/lang/Class;)V
+       5: return
+
+  public void setObj(java.lang.Object);
+    descriptor: (Ljava/lang/Object;)V
+    Code:
+       0: aload_0
+       1: aload_1
+       2: checkcast     #3                  // class java/util/Date
+       5: invokevirtual #7                  // Method setObj:(Ljava/util/Date;)V
+       8: return
+
+  public java.lang.Object getObj();
+    descriptor: ()Ljava/lang/Object;
+    Code:
+       0: aload_0
+       1: invokevirtual #8                  // Method getObj:()Ljava/util/Date;
+       4: areturn
+}
