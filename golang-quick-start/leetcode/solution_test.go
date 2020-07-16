@@ -115,3 +115,17 @@ func Test_minimumTotal(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_isBipartite(t *testing.T) {
+	result := isBipartite(
+		[][]int{
+			[]int{3},
+			[]int{2, 4},
+			[]int{1},
+			[]int{0, 4},
+			[]int{1, 3},
+		},
+	)
+
+	fmt.Println(result)
+}
