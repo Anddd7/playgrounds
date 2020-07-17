@@ -129,3 +129,12 @@ func Test_isBipartite(t *testing.T) {
 
 	fmt.Println(result)
 }
+func Test_searchInsert(t *testing.T) {
+	result := searchInsert(
+		[]int{
+			1, 3, 5, 6,
+		}, 2,
+	)
+
+	fmt.Println(result)
+}
