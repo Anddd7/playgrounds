@@ -21,10 +21,6 @@ public class AsyncTest {
     Thread child = new Thread(() -> {
       System.out.println("doing task 2");
       System.out.println("doing task 2.1");
-      ThreadLocal<String> stringThreadLocal = ThreadLocal.withInitial(() -> "test");
-      stringThreadLocal.set();
-      stringThreadLocal.get();
-      stringThreadLocal.remove();
     });
     System.out.println("doing task 1");
     child.start(); // start task 2
