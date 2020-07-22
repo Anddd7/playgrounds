@@ -2,13 +2,16 @@ package com.github.anddd7.jdk8.concurrent;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
+/**
+ * 不可重入互斥锁
+ */
 public class Mutex {
 
-  /* SimplestSync */
+  /* Sync */
 
-  private static class SimplestSync extends AbstractQueuedSynchronizer {
+  private static class Sync extends AbstractQueuedSynchronizer {
 
-    public SimplestSync() {
+    public Sync() {
       setState(1);
     }
     /*
@@ -50,8 +53,8 @@ public class Mutex {
     }
   }
 
-  public static Mutex simplest() {
-    return new Mutex(new SimplestSync());
+  public static Mutex mutex() {
+    return new Mutex(new Sync());
   }
 
   /* interface methods */

@@ -10,7 +10,7 @@ class MutexTest {
 
   @Test
   public void test_mutex() throws InterruptedException {
-    Mutex mutex = Mutex.simplest();
+    Mutex mutex = Mutex.mutex();
     ExecutorService executorService = new ThreadPoolExecutor(
         5, 5, 1000, TimeUnit.MILLISECONDS,
         new ArrayBlockingQueue<>(100)
