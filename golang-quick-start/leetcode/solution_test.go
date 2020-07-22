@@ -138,3 +138,18 @@ func Test_searchInsert(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_minArray(t *testing.T) {
+	result := minArray(
+		[]int{
+			// 3, 4, 5, 1, 2,
+			// 2, 2, 2, 0, 1,
+			// 1, 3, 5,
+			// 1, 1,
+			// 3, 1, 3,
+			// 10, 1, 10, 10, 10,
+		},
+	)
+
+	fmt.Println(result)
+}
