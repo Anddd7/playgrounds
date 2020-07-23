@@ -153,3 +153,15 @@ func Test_minArray(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_minPathSum(t *testing.T) {
+	result := minPathSum(
+		[][]int{
+			[]int{1, 3, 1},
+			[]int{1, 5, 1},
+			[]int{4, 2, 1},
+		},
+	)
+
+	fmt.Println(result)
+}
