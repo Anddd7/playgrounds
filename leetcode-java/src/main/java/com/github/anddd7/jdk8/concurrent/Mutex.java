@@ -54,15 +54,15 @@ public class Mutex {
   }
 
   public static Mutex mutex() {
-    return new Mutex(new Sync());
+    return new Mutex();
   }
 
   /* interface methods */
 
-  private final AbstractQueuedSynchronizer sync;
+  private final Sync sync;
 
-  private Mutex(AbstractQueuedSynchronizer sync) {
-    this.sync = sync;
+  private Mutex() {
+    this.sync = new Sync();
   }
 
   public void acquire() {
