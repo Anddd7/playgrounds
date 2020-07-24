@@ -40,6 +40,15 @@ public class ConstantStringPoolTest {
   private static String staticStr = "a static string";
   private static final String staticFinalStr = "a static final string";
 
+  /**
+   * 不会出现在常量池
+   */
+  private int nonConstant = 10;
+  /**
+   * 会出现在常量池
+   */
+  private final int constant = 11;
+
   @Test
   public void test() {
     Assertions.assertThat("just string" == str).isTrue();
