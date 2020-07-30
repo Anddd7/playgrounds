@@ -22,10 +22,3 @@ func maxProfit(prices []int) int {
 
 	return maxOf(dpJustSelled, dpAlreadySelled)
 }
-
-func maxOf(a int, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}

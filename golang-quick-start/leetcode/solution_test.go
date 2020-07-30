@@ -165,3 +165,11 @@ func Test_minPathSum(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_integerBreak(t *testing.T) {
+	result := integerBreak(
+		10,
+	)
+
+	fmt.Println(result)
+}
