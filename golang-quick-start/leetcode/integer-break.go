@@ -25,9 +25,9 @@ func integer(dp []int, n int) int {
 	return dp[n]
 }
 
-func maxOf(a int, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
+// func maxOf(a int, b int) int {
+// 	if a > b {
+// 		return a
+// 	}
+// 	return b
+// }

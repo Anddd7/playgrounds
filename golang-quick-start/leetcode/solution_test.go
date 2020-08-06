@@ -173,3 +173,27 @@ func Test_integerBreak(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+func Test_canFinish(t *testing.T) {
+	result := canFinish(
+		3,
+		[][]int{
+			[]int{1, 0},
+			[]int{1, 2},
+			[]int{0, 1},
+		},
+	)
+
+	fmt.Println(result)
+}
+func Test_rob(t *testing.T) {
+	result := rob(
+		&TreeNode{
+			3,
+			&TreeNode{3, &TreeNode{1, nil, nil}, &TreeNode{3, nil, nil}},
+			&TreeNode{5, nil, &TreeNode{1, nil, nil}},
+		},
+	)
+
+	fmt.Println(result)
+}
