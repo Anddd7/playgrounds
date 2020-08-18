@@ -197,3 +197,28 @@ func Test_rob(t *testing.T) {
 
 	fmt.Println(result)
 }
+
+
+
+func Test_sortedListToBST(t *testing.T) {
+	result := sortedListToBST(
+		&ListNode{
+			Val: -10,
+			Next: &ListNode{
+				Val: -3,
+				Next: &ListNode{
+					Val: 0,
+					Next: &ListNode{
+						Val: 5,
+						Next: &ListNode{
+							Val:  9,
+							Next: nil,
+						},
+					},
+				},
+			},
+		},
+	)
+
+	fmt.Println(result)
+}
