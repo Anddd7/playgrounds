@@ -16,6 +16,10 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
 
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2")
+
+    testImplementation("io.mockk:mockk:1.10.6")
+
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
 
