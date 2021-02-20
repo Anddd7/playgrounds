@@ -1,24 +1,26 @@
 package com.github.anddd7.leetcode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Solution {
 
     public static final Solution INSTANCE = new Solution();
 
-    public List<Integer> findDisappearedNumbers(int[] nums) {
-        int n = nums.length;
-        for (int num : nums) {
-            int x = (num - 1) % n;
-            nums[x] += n;
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int slot = 0;
+        int i = 0;
+        while (i < flowerbed.length) {
+            if (flowerbed[i] == 0) {
+                int j = i;
+                while (j < flowerbed.length && flowerbed[j] == 0) {
+                    j++;
+                }
+                int length = j - i;
+                if (i == 0) length++;
+                if (j == flowerbed.length) length++;
+                if (length >= 3) slot += (length - 1) / 2;
+                i = j;
+            } else i++;
         }
-        List<Integer> ret = new ArrayList<Integer>();
-        for (int i = 0; i < n; i++) {
-            if (nums[i] <= n) {
-                ret.add(i + 1);
-            }
-        }
-        return ret;
+
+        return slot >= n;
     }
 }
