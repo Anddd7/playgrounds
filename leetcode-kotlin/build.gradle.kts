@@ -28,6 +28,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junit5ApiVersion")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit5ApiVersion")
+
+    implementation("commons-codec:commons-codec:1.15")
 }
 
 tasks.test {
