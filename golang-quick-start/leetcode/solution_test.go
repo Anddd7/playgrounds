@@ -106,10 +106,10 @@ func Test_intersect(t *testing.T) {
 func Test_minimumTotal(t *testing.T) {
 	result := minimumTotal(
 		[][]int{
-			[]int{2},
-			[]int{3, 4},
-			[]int{6, 5, 7},
-			[]int{4, 1, 8, 3},
+			{2},
+			{3, 4},
+			{6, 5, 7},
+			{4, 1, 8, 3},
 		},
 	)
 
@@ -119,11 +119,11 @@ func Test_minimumTotal(t *testing.T) {
 func Test_isBipartite(t *testing.T) {
 	result := isBipartite(
 		[][]int{
-			[]int{3},
-			[]int{2, 4},
-			[]int{1},
-			[]int{0, 4},
-			[]int{1, 3},
+			{3},
+			{2, 4},
+			{1},
+			{0, 4},
+			{1, 3},
 		},
 	)
 
@@ -157,9 +157,9 @@ func Test_minArray(t *testing.T) {
 func Test_minPathSum(t *testing.T) {
 	result := minPathSum(
 		[][]int{
-			[]int{1, 3, 1},
-			[]int{1, 5, 1},
-			[]int{4, 2, 1},
+			{1, 3, 1},
+			{1, 5, 1},
+			{4, 2, 1},
 		},
 	)
 
@@ -178,9 +178,9 @@ func Test_canFinish(t *testing.T) {
 	result := canFinish(
 		3,
 		[][]int{
-			[]int{1, 0},
-			[]int{1, 2},
-			[]int{0, 1},
+			{1, 0},
+			{1, 2},
+			{0, 1},
 		},
 	)
 

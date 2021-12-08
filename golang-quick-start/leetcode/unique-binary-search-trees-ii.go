@@ -19,7 +19,7 @@ func generateTreesFrom(start int, end int) []*TreeNode {
 		return []*TreeNode{nil}
 	}
 	if start == end {
-		return []*TreeNode{&TreeNode{Val: start, Left: nil, Right: nil}}
+		return []*TreeNode{{Val: start, Left: nil, Right: nil}}
 	}
 
 	trees := []*TreeNode{}
