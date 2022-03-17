@@ -1,10 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val junit5ApiVersion = "5.5.1"
-val assertjVersion = "3.13.2"
-
 plugins {
-    kotlin("jvm") version "1.3.50"
+    kotlin("jvm") version "1.6.10"
 }
 
 repositories {
@@ -12,22 +9,19 @@ repositories {
 }
 
 dependencies {
+    implementation(platform(kotlin("bom")))
+
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
-
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2")
-
-    testImplementation("io.mockk:mockk:1.10.6")
-
-    testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
 
-    testImplementation("org.assertj:assertj-core:$assertjVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit5ApiVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:$junit5ApiVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit5ApiVersion")
+
+    testImplementation("io.mockk:mockk:1.12.3")
+    testImplementation("org.assertj:assertj-core:3.22.0")
 
     implementation("commons-codec:commons-codec:1.15")
 }
