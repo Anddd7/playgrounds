@@ -134,5 +134,4 @@ object CoroutineCancel {
         println("main: Now I can quit.")
     }
 
-    fun
 }
