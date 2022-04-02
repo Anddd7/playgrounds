@@ -1,6 +1,7 @@
 package com.github.anddd7.coroutine
 
 import com.github.anddd7.coroutine.CoroutineUtils.log
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
