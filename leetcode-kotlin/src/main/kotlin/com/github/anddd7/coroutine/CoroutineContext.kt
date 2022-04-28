@@ -43,6 +43,11 @@ object CoroutineContext {
             newSingleThreadContext("Ctx2").use { ctx2 ->
                 runBlocking(ctx1) {
                     log("Started in ctx1")
+                    launch {
+                        // delay(100)
+                        log("do some thing in ctx1")
+                    }
+                    // will suspend this coroutine
                     withContext(ctx2) {
                         log("Working in ctx2")
                     }
