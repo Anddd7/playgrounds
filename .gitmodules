@@ -13,3 +13,6 @@
 [submodule "kotlin/micronaut/ddd-advantage-dojo"]
 	path = kotlin/micronaut/ddd-advantage-dojo
 	url = git@github.com:Anddd7/ddd-advantage-dojo.git
+[submodule "kotlin/spring/kotlin-spring-template"]
+	path = kotlin/spring/kotlin-spring-template
+	url = git@github.com:Anddd7/kotlin-spring-template.git

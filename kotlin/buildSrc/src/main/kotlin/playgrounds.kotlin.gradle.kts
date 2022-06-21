@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val coroutineVersion :String by project
+
 plugins {
     kotlin("jvm")
 }
@@ -7,8 +9,6 @@ plugins {
 repositories {
     mavenCentral()
 }
-
-val coroutineVersion :String by project
 
 dependencies {
     constraints {
@@ -27,10 +27,15 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
 }
 
-tasks.named<Test>("test") {
-    useJUnitPlatform()
+java.sourceCompatibility = JavaVersion.VERSION_17
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "17"
+    }
 }
 
-tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "1.8"
+tasks.named<Test>("test") {
+    useJUnitPlatform()
 }
