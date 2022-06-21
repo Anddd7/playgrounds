@@ -1,0 +1,6 @@
+[submodule "clojure/clojure-tutorial"]
+	path = clojure/clojure-tutorial
+	url = git@github.com:Anddd7/clojure-tutorial.git
+[submodule "infra/infrastructure-workshop"]
+	path = infra/infrastructure-workshop
+	url = git@github.com:Anddd7/infrastructure-workshop.git
