@@ -1,3 +1,1 @@
-# ALGORITHM LAB
-
-just a playground
+# Playgrounds
