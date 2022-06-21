@@ -4,3 +4,6 @@
 [submodule "infra/infrastructure-workshop"]
 	path = infra/infrastructure-workshop
 	url = git@github.com:Anddd7/infrastructure-workshop.git
+[submodule "kotlin/model-pattern-objects"]
+	path = kotlin/model-pattern-objects
+	url = git@github.com:Anddd7/model-pattern-objects.git

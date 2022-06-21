@@ -8,3 +8,4 @@ pluginManagement {
 }
 
 include(":leetcode-kotlin")
+include(":model-pattern-objects")
