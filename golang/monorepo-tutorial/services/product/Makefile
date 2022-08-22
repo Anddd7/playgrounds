@@ -1,19 +1,4 @@
 include ../../infrastructure/make/grpc_gen.mk
+include ../../infrastructure/make/golang.mk
 
-# input variables
-
-SERVICE_NAME	:= product
-SRC_PATH		:= src
-BUILD_PATH		:= build
-
-# variables
-
-MAIN_PATH 		:= ${SRC_PATH}/main.go
-
-# commands
-
-build:
-	go build -o ${BUILD_PATH}/${SERVICE_NAME} ${MAIN_PATH}
-
-run:
-	go run ${MAIN_PATH}
+SERVICE_NAME := order

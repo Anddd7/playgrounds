@@ -1,7 +1,8 @@
 # input variables
 
 GIT_ROOT_DIR    := $(shell git rev-parse --show-toplevel)
-REPO_PATH 		:= golang/monorepo-tutorial 				# set to empty if repo is same as the root of git
+## set to empty if repo is same as the root of git
+REPO_PATH 		:= golang/monorepo-tutorial
 
 # variables
 
