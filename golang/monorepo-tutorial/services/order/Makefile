@@ -2,7 +2,7 @@ include ../../infrastructure/make/grpc_gen.mk
 
 # input variables
 
-SERVICE_NAME	:= product
+SERVICE_NAME	:= order
 SRC_PATH		:= src
 BUILD_PATH		:= build
 
