@@ -8,6 +8,7 @@
 
 # input variables
 
+RELATIVE_PATH	:= .
 SRC_PATH		:= src
 BUILD_PATH		:= build
 
@@ -18,7 +19,7 @@ MAIN_PATH 		:= ${SRC_PATH}/main.go
 # commands
 
 build:
-	go build -o ${BUILD_PATH}/${SERVICE_NAME} ${MAIN_PATH}
+	go build -o ${RELATIVE_PATH}/${BUILD_PATH}/${SERVICE_NAME} ${RELATIVE_PATH}/${MAIN_PATH}
 
 run:
-	go run ${MAIN_PATH}
+	go run ${RELATIVE_PATH}/${MAIN_PATH}
