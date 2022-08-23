@@ -18,8 +18,10 @@ MAIN_PATH 		:= ${SRC_PATH}/main.go
 
 # commands
 
-build:
+build: gen
+	@echo ">> build the binary package"
 	go build -o ${RELATIVE_PATH}/${BUILD_PATH}/${SERVICE_NAME} ${RELATIVE_PATH}/${MAIN_PATH}
 
-run:
-	go run ${RELATIVE_PATH}/${MAIN_PATH}
+run: gen
+	@echo ">> run service"
+	@go run ${RELATIVE_PATH}/${MAIN_PATH}
