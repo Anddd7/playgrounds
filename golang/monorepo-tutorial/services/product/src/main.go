@@ -2,21 +2,19 @@ package main
 
 import (
 	"context"
-	"fmt"
-)
-
-import (
 	"flag"
+	"fmt"
 	"log"
 	"net"
 
 	"google.golang.org/grpc"
 
+	"github.com/anddd7/monorepo/pkg/envs"
 	this "github.com/anddd7/monorepo/services/product"
 )
 
 var (
-	port = flag.Int("port", 50051, "The server port")
+	port = flag.Int("port", envs.LOCAL_PRODUCT_PORT, "The server port")
 )
 
 func prepare() {
