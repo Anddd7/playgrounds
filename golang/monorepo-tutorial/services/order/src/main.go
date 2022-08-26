@@ -4,10 +4,10 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"log"
 	"net"
-
-	"google.golang.org/grpc"
 
 	"github.com/anddd7/monorepo/pkg/envs"
 	this "github.com/anddd7/monorepo/services/order"
@@ -15,7 +15,8 @@ import (
 )
 
 var (
-	port = flag.Int("port", envs.LOCAL_ORDER_PORT, "The server port")
+	port       = flag.Int("port", envs.LOCAL_ORDER_PORT, "The server port")
+	productURL = flag.String("product_url", fmt.Sprintf("localhost:%v", envs.LOCAL_PRODUCT_PORT), "the address to connect to")
 )
 
 func prepare() {
@@ -23,15 +24,23 @@ func prepare() {
 }
 
 type server struct {
-	this.OrderServiceServer
+	productClient product.ProductServiceClient
 }
 
 func (s server) GetOrder(ctx context.Context, req *this.GetOrderReq) (*this.Order, error) {
-	var products []*product.Product
+	p1, _ := s.productClient.GetProduct(ctx, &product.GetProductReq{Id: 1})
+	p2, _ := s.productClient.GetProduct(ctx, &product.GetProductReq{Id: 2})
+	p3, _ := s.productClient.GetProduct(ctx, &product.GetProductReq{Id: 3})
+	products := []*product.Product{p1, p2, p3}
+	var totalPriceCent int32
+	for _, p := range products {
+		totalPriceCent += p.GetPriceCent()
+	}
+
 	return &this.Order{
 		Id:             req.GetId(),
 		Products:       products,
-		TotalPriceCent: 0,
+		TotalPriceCent: totalPriceCent,
 		Status:         0,
 	}, nil
 }
@@ -42,7 +51,18 @@ func (s server) CreateOrder(ctx context.Context, req *this.CreateOrderReq) (*thi
 }
 
 func register(s *grpc.Server) {
-	this.RegisterOrderServiceServer(s, &server{})
+	productClient := newProductServiceClient()
+	this.RegisterOrderServiceServer(s, &server{
+		productClient: productClient,
+	})
+}
+
+func newProductServiceClient() product.ProductServiceClient {
+	conn, err := grpc.Dial(*productURL, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	return product.NewProductServiceClient(conn)
 }
 
 func main() {
