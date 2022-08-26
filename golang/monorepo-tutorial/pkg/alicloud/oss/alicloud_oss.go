@@ -2,28 +2,22 @@ package main
 
 import (
 	"bytes"
-	"fmt"
-	"os"
+	"log"
 	"time"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
 
-func exitPanic(msg string, err error) {
-	fmt.Println("msg", err)
-	os.Exit(-1)
-}
-
 func main() {
 	client, err := oss.New("yourEndpoint", "yourAccessKeyId", "yourAccessKeySecret")
 	if err != nil {
-		exitPanic("Error:", err)
+		log.Fatalf("Error: %v", err)
 	}
 
 	bucketName := "example_bucket"
 	bucket, err := client.Bucket(bucketName)
 	if err != nil {
-		exitPanic("Error:", err)
+		log.Fatalf("Error: %v", err)
 	}
 
 	objectName := "example_object.txt"
@@ -59,7 +53,7 @@ func main() {
 	for index, chunk := range chunks {
 		part, err := bucket.UploadPart(initiateUpload, bytes.NewReader(chunk), int64(len(chunk)), index)
 		if err != nil {
-			exitPanic("Error:", err)
+			log.Fatalf("Error: %v", err)
 		}
 		parts = append(parts, part)
 	}
@@ -67,8 +61,8 @@ func main() {
 	// 步骤3：完成分片上传，指定文件读写权限为公共读。
 	completeUpload, err := bucket.CompleteMultipartUpload(initiateUpload, parts, objectAcl)
 	if err != nil {
-		exitPanic("Error:", err)
+		log.Fatalf("Error: %v", err)
 	}
 
-	fmt.Println("completed:", completeUpload)
+	log.Printf("completed: %v", completeUpload)
 }
