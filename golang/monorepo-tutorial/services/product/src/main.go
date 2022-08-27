@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"os"
 	"strconv"
 
 	"google.golang.org/grpc"
@@ -15,14 +14,8 @@ import (
 )
 
 var (
-	port = os.Getenv("PORT")
+	port = envs.GetEnvOrStr("PORT", strconv.Itoa(envs.LocalProductPort))
 )
-
-func prepare() {
-	if port == "" {
-		port = strconv.Itoa(envs.LocalProductPort)
-	}
-}
 
 type server struct {
 	this.ProductServiceServer
@@ -47,7 +40,6 @@ func register(s *grpc.Server) {
 }
 
 func main() {
-	prepare()
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)

@@ -19,10 +19,6 @@ var (
 	productURL = os.Getenv("PRODUCT_URL")
 )
 
-func prepare() {
-	// pass
-}
-
 type server struct {
 	productClient product.ProductServiceClient
 }
@@ -58,7 +54,6 @@ func register(s *grpc.Server) {
 }
 
 func main() {
-	prepare()
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
