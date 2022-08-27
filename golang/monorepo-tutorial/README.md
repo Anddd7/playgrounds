@@ -1,3 +1,7 @@
+- [ ] refactor folder description into CODEOWNERS
+- [ ] add k8s infra: terraform, namespace, kustomized
+
+
 # Mono Repository of the Golang
 
 ## background
@@ -10,13 +14,17 @@ create order, calculate total price of products and send notification to warehou
 
 ### gateway
 
-### orchestration
+config of istio, k8s ingress,
 
-### domain
+### services
 
 - grpc server
 - handlers
 - grpc client
+
+#### orchestration
+
+a special service reuse the service api to attach new functions without modify the service
 
 ### pkg
 
@@ -24,6 +32,8 @@ create order, calculate total price of products and send notification to warehou
 
 ### infrastructure
 
-- container
-- shell
-- terraform
+#### container
+
+#### shell
+
+#### terraform
