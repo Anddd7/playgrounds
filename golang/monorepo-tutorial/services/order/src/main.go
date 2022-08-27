@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"log"
 	"net"
+	"os"
+	"strconv"
 
 	"github.com/anddd7/monorepo/pkg/envs"
 	this "github.com/anddd7/monorepo/services/order"
@@ -15,12 +15,12 @@ import (
 )
 
 var (
-	port       = flag.Int("port", envs.LOCAL_ORDER_PORT, "The server port")
-	productURL = flag.String("product_url", fmt.Sprintf("localhost:%v", envs.LOCAL_PRODUCT_PORT), "the address to connect to")
+	port       = envs.GetEnvOrStr("PORT", strconv.Itoa(envs.LocalOrderPort))
+	productURL = os.Getenv("PRODUCT_URL")
 )
 
 func prepare() {
-	flag.Parse()
+	// pass
 }
 
 type server struct {
@@ -51,23 +51,15 @@ func (s server) CreateOrder(ctx context.Context, req *this.CreateOrderReq) (*thi
 }
 
 func register(s *grpc.Server) {
-	productClient := newProductServiceClient()
+	productClient := product.NewProductClient(productURL)
 	this.RegisterOrderServiceServer(s, &server{
 		productClient: productClient,
 	})
 }
 
-func newProductServiceClient() product.ProductServiceClient {
-	conn, err := grpc.Dial(*productURL, grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
-	}
-	return product.NewProductServiceClient(conn)
-}
-
 func main() {
 	prepare()
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

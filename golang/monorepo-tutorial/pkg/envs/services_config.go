@@ -1,6 +1,16 @@
 package envs
 
+import "os"
+
 const (
-	LOCAL_PRODUCT_PORT = 50051
-	LOCAL_ORDER_PORT   = 50052
+	LocalProductPort = 50051
+	LocalOrderPort   = 50052
 )
+
+func GetEnvOrStr(name string, value string) string {
+	v := os.Getenv(name)
+	if v == "" {
+		return value
+	}
+	return v
+}
