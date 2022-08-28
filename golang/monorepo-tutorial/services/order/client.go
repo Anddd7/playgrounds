@@ -13,6 +13,7 @@ func NewOrderClient(url string) OrderServiceClient {
 	if url == "" {
 		url = fmt.Sprintf("localhost:%v", envs.LocalOrderPort)
 	}
+
 	conn, err := grpc.Dial(url, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)

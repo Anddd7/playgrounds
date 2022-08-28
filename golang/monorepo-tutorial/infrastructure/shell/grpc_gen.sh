@@ -1,9 +1,9 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
-ROOT_DIR=$(go env GOMOD | xargs dirname)
-SERVICES_PATH=services
+root_dir=$(go env GOMOD | xargs dirname)
+services_path=services
 
-cd "${ROOT_DIR}/${SERVICES_PATH}"
+cd "${root_dir}/${services_path}" || exit
 
 protoc -I. \
     --go_out=paths=source_relative:. \
