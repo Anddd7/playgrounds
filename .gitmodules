@@ -16,3 +16,6 @@
 [submodule "kotlin/spring/kotlin-spring-template"]
 	path = kotlin/spring/kotlin-spring-template
 	url = git@github.com:Anddd7/kotlin-spring-template.git
+[submodule "golang/golang/go-monorepo-tutorial"]
+	path = golang/golang/go-monorepo-tutorial
+	url = git@github.com:Anddd7/go-monorepo-tutorial.git
