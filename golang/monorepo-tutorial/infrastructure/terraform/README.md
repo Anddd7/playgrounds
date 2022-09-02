@@ -1,3 +1,0 @@
-- dev-mac
-- dev-windows
-- modules
