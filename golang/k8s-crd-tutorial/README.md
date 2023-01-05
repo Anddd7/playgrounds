@@ -97,3 +97,4 @@
     chmod -R 777 vendor
     ./hack/update-codegen.sh
   ```
+- 编写 main.go 测试
