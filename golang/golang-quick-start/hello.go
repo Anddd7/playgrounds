@@ -2,67 +2,55 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func main() {
-	fmt.Println(permuteUnique([]int{1, 1, 2}))
+	fmt.Println(countPairs([]int{1, 4, 2, 7}, 2, 6))
 }
 
-func permuteUnique(nums []int) [][]int {
-	sort.Ints(nums)
-	length := len(nums)
-	ans := [][]int{}
-	temp := []int{}
-	visited := make([]bool, length)
+type trie struct {
+	count    int
+	children [2]*trie
+}
 
-	var backtrack func(int)
-	backtrack = func(idx int) {
-		if idx == length {
-			ans = append(ans, append([]int(nil), temp...))
-			return
+const HIGH_BIT = 14
+
+func countPairs(nums []int, low int, high int) (count int) {
+	root := &trie{}
+	for _, num := range nums {
+		count += root.search(num, high+1) - root.search(num, low)
+		root.insert(num)
+	}
+	return count
+}
+
+func (t *trie) insert(number int) {
+	cur := t
+	for k := HIGH_BIT; k >= 0; k-- {
+		v := (number >> k) & 1
+		if cur.children[v] == nil {
+			cur.children[v] = &trie{}
 		}
+		cur = cur.children[v]
+		cur.count++
+	}
+}
 
-		// 从 nums 中依次选取一个数字放到 idx 处
-		for i, curr := range nums {
-			// 剪枝: 当前数字已经被加入到了结果数组中
-			if visited[i] {
-				continue
+func (t *trie) search(number, x int) (count int) {
+	cur := t
+	for k := HIGH_BIT; k >= 0 && cur != nil; k-- {
+		v := (number >> k) & 1
+		if (x>>k)&1 == 1 {
+			// x 当前位为 1，只要 number 和 目标 的异或结果为 0，就可以直接计数
+			if cur.children[v] != nil {
+				count += cur.children[v].count
 			}
-			// 剪枝: 当前数字和前置数字相同, 然而前置数字还未被使用过
-			// e.g. 122 -> 1-22, 12-2, 得到答案回退, 1x2 (发现 2 前置还有一个 2 未使用, 此分支无效)
-			if i > 0 && curr == nums[i-1] && !visited[i-1] {
-				continue
-			}
-
-			// 当前合法串
-			temp = append(temp, curr)
-			// 标记当前数字已被使用
-			visited[i] = true
-			// 寻找下一个合法数字
-			backtrack(idx + 1)
-			// 结束搜索 回退状态
-			visited[i] = false
-			temp = temp[:len(temp)-1]
+			// 然后继续搜索异或结果为 1 的，是否在下一位满足小于要求
+			cur = cur.children[v^1]
+		} else {
+			// x 当前位为 0，number 和 目标的异或结果也只能为 0，是否在下一位满足小于要求
+			cur = cur.children[v]
 		}
 	}
-	// 启动
-	backtrack(0)
-	return ans
+	return count
 }
-
-func swap(nums []int, x int, y int) {
-	if x == y {
-		return
-	}
-	temp := nums[y]
-	nums[y] = nums[x]
-	nums[x] = temp
-}
-
-// func maxOf(a int, b int) int {
-// 	if a > b {
-// 		return a
-// 	}
-// 	return b
-// }

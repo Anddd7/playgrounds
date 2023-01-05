@@ -1,0 +1,29 @@
+apiVersion: "anddd7.github.com/v1beta1"
+kind: Buyer
+metadata:
+  name: buyer-apple
+  namespace: default
+spec:
+  name: apple
+  amount: 10
+  price: 100
+---
+apiVersion: "anddd7.github.com/v1beta1"
+kind: Buyer
+metadata:
+  name: buyer-banana
+  namespace: default
+spec:
+  name: banana
+  amount: 15
+  price: 120
+---
+apiVersion: "anddd7.github.com/v1beta1"
+kind: Buyer
+metadata:
+  name: buyer-peach
+  namespace: default
+spec:
+  name: peach
+  amount: 10
+  price: 198
