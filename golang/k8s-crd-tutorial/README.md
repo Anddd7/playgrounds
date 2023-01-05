@@ -86,4 +86,14 @@
 ## Step 3
 
 - 准备 hack 文件夹
-  - 修改对应的名称和参数
+  - 下载必要的依赖
+    - `go get -u k8s.io/code-generator`
+    - `go get -u k8s.io/apimachinery/pkg/apis/meta/v1`
+- 修改对应的名称和参数（代码生成的路径）
+- 代码生成和验证
+
+  ```sh
+    go mod vendor
+    chmod -R 777 vendor
+    ./hack/update-codegen.sh
+  ```
