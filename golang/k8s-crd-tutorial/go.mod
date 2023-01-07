@@ -1,8 +1,11 @@
-module anddd7.github.com/buyer-controller
+module k8s-crd-tutorial
 
 go 1.18
 
-require k8s.io/apimachinery v0.26.0
+require (
+	k8s.io/apimachinery v0.26.0
+	k8s.io/client-go v0.26.0
+)
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -46,7 +49,6 @@ require (
 	golang.org/x/text v0.6.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	k8s.io/client-go v0.26.0
 	k8s.io/code-generator v0.26.0
 	k8s.io/klog/v2 v2.80.1 // indirect
 	k8s.io/utils v0.0.0-20221107191617-1a15be271d1d // indirect

@@ -1,29 +1,32 @@
 apiVersion: "k8scrdtutorial.github.com/v1alpha1"
-kind: Buyer
+kind: Seller
 metadata:
-  name: buyer-apple
+  name: seller-apple
   namespace: default
 spec:
   name: apple
   amount: 10
   price: 100
+  money: 0
 ---
 apiVersion: "k8scrdtutorial.github.com/v1alpha1"
-kind: Buyer
+kind: Seller
 metadata:
-  name: buyer-banana
+  name: seller-banana
   namespace: default
 spec:
   name: banana
   amount: 15
   price: 120
+  money: 0
 ---
 apiVersion: "k8scrdtutorial.github.com/v1alpha1"
-kind: Buyer
+kind: Seller
 metadata:
-  name: buyer-peach
+  name: seller-peach
   namespace: default
 spec:
   name: peach
   amount: 10
-  price: 198
+  price: 100
+  money: 0

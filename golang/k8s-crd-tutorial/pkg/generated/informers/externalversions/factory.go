@@ -19,13 +19,13 @@ limitations under the License.
 package externalversions
 
 import (
+	versioned "k8s-crd-tutorial/pkg/generated/clientset/versioned"
+	internalinterfaces "k8s-crd-tutorial/pkg/generated/informers/externalversions/internalinterfaces"
+	k8scrdtutorial "k8s-crd-tutorial/pkg/generated/informers/externalversions/k8scrdtutorial"
 	reflect "reflect"
 	sync "sync"
 	time "time"
 
-	versioned "anddd7.github.com/buyer-controller/pkg/generated/clientset/versioned"
-	anddd7 "anddd7.github.com/buyer-controller/pkg/generated/informers/externalversions/anddd7"
-	internalinterfaces "anddd7.github.com/buyer-controller/pkg/generated/informers/externalversions/internalinterfaces"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -243,9 +243,9 @@ type SharedInformerFactory interface {
 	// client.
 	InformerFor(obj runtime.Object, newFunc internalinterfaces.NewInformerFunc) cache.SharedIndexInformer
 
-	Anddd7() anddd7.Interface
+	K8scrdtutorial() k8scrdtutorial.Interface
 }
 
-func (f *sharedInformerFactory) Anddd7() anddd7.Interface {
-	return anddd7.New(f, f.namespace, f.tweakListOptions)
+func (f *sharedInformerFactory) K8scrdtutorial() k8scrdtutorial.Interface {
+	return k8scrdtutorial.New(f, f.namespace, f.tweakListOptions)
 }

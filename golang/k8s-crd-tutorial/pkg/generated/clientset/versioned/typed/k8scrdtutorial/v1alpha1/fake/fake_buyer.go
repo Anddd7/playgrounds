@@ -20,8 +20,8 @@ package fake
 
 import (
 	"context"
+	v1alpha1 "k8s-crd-tutorial/pkg/apis/k8scrdtutorial/v1alpha1"
 
-	v1beta1 "anddd7.github.com/buyer-controller/pkg/apis/anddd7/v1beta1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -32,29 +32,29 @@ import (
 
 // FakeBuyers implements BuyerInterface
 type FakeBuyers struct {
-	Fake *FakeAnddd7V1beta1
+	Fake *FakeK8scrdtutorialV1alpha1
 	ns   string
 }
 
-var buyersResource = schema.GroupVersionResource{Group: "anddd7.github.com", Version: "v1beta1", Resource: "buyers"}
+var buyersResource = schema.GroupVersionResource{Group: "k8scrdtutorial.github.com", Version: "v1alpha1", Resource: "buyers"}
 
-var buyersKind = schema.GroupVersionKind{Group: "anddd7.github.com", Version: "v1beta1", Kind: "Buyer"}
+var buyersKind = schema.GroupVersionKind{Group: "k8scrdtutorial.github.com", Version: "v1alpha1", Kind: "Buyer"}
 
 // Get takes name of the buyer, and returns the corresponding buyer object, and an error if there is any.
-func (c *FakeBuyers) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1beta1.Buyer, err error) {
+func (c *FakeBuyers) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Buyer, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(buyersResource, c.ns, name), &v1beta1.Buyer{})
+		Invokes(testing.NewGetAction(buyersResource, c.ns, name), &v1alpha1.Buyer{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1beta1.Buyer), err
+	return obj.(*v1alpha1.Buyer), err
 }
 
 // List takes label and field selectors, and returns the list of Buyers that match those selectors.
-func (c *FakeBuyers) List(ctx context.Context, opts v1.ListOptions) (result *v1beta1.BuyerList, err error) {
+func (c *FakeBuyers) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.BuyerList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(buyersResource, buyersKind, c.ns, opts), &v1beta1.BuyerList{})
+		Invokes(testing.NewListAction(buyersResource, buyersKind, c.ns, opts), &v1alpha1.BuyerList{})
 
 	if obj == nil {
 		return nil, err
@@ -64,8 +64,8 @@ func (c *FakeBuyers) List(ctx context.Context, opts v1.ListOptions) (result *v1b
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1beta1.BuyerList{ListMeta: obj.(*v1beta1.BuyerList).ListMeta}
-	for _, item := range obj.(*v1beta1.BuyerList).Items {
+	list := &v1alpha1.BuyerList{ListMeta: obj.(*v1alpha1.BuyerList).ListMeta}
+	for _, item := range obj.(*v1alpha1.BuyerList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -81,31 +81,31 @@ func (c *FakeBuyers) Watch(ctx context.Context, opts v1.ListOptions) (watch.Inte
 }
 
 // Create takes the representation of a buyer and creates it.  Returns the server's representation of the buyer, and an error, if there is any.
-func (c *FakeBuyers) Create(ctx context.Context, buyer *v1beta1.Buyer, opts v1.CreateOptions) (result *v1beta1.Buyer, err error) {
+func (c *FakeBuyers) Create(ctx context.Context, buyer *v1alpha1.Buyer, opts v1.CreateOptions) (result *v1alpha1.Buyer, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(buyersResource, c.ns, buyer), &v1beta1.Buyer{})
+		Invokes(testing.NewCreateAction(buyersResource, c.ns, buyer), &v1alpha1.Buyer{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1beta1.Buyer), err
+	return obj.(*v1alpha1.Buyer), err
 }
 
 // Update takes the representation of a buyer and updates it. Returns the server's representation of the buyer, and an error, if there is any.
-func (c *FakeBuyers) Update(ctx context.Context, buyer *v1beta1.Buyer, opts v1.UpdateOptions) (result *v1beta1.Buyer, err error) {
+func (c *FakeBuyers) Update(ctx context.Context, buyer *v1alpha1.Buyer, opts v1.UpdateOptions) (result *v1alpha1.Buyer, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(buyersResource, c.ns, buyer), &v1beta1.Buyer{})
+		Invokes(testing.NewUpdateAction(buyersResource, c.ns, buyer), &v1alpha1.Buyer{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1beta1.Buyer), err
+	return obj.(*v1alpha1.Buyer), err
 }
 
 // Delete takes name of the buyer and deletes it. Returns an error if one occurs.
 func (c *FakeBuyers) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteActionWithOptions(buyersResource, c.ns, name, opts), &v1beta1.Buyer{})
+		Invokes(testing.NewDeleteActionWithOptions(buyersResource, c.ns, name, opts), &v1alpha1.Buyer{})
 
 	return err
 }
@@ -114,17 +114,17 @@ func (c *FakeBuyers) Delete(ctx context.Context, name string, opts v1.DeleteOpti
 func (c *FakeBuyers) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	action := testing.NewDeleteCollectionAction(buyersResource, c.ns, listOpts)
 
-	_, err := c.Fake.Invokes(action, &v1beta1.BuyerList{})
+	_, err := c.Fake.Invokes(action, &v1alpha1.BuyerList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched buyer.
-func (c *FakeBuyers) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1beta1.Buyer, err error) {
+func (c *FakeBuyers) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Buyer, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(buyersResource, c.ns, name, pt, data, subresources...), &v1beta1.Buyer{})
+		Invokes(testing.NewPatchSubresourceAction(buyersResource, c.ns, name, pt, data, subresources...), &v1alpha1.Buyer{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1beta1.Buyer), err
+	return obj.(*v1alpha1.Buyer), err
 }

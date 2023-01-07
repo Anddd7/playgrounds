@@ -20,8 +20,8 @@ package externalversions
 
 import (
 	"fmt"
+	v1alpha1 "k8s-crd-tutorial/pkg/apis/k8scrdtutorial/v1alpha1"
 
-	v1beta1 "anddd7.github.com/buyer-controller/pkg/apis/anddd7/v1beta1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -52,9 +52,11 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=anddd7.github.com, Version=v1beta1
-	case v1beta1.SchemeGroupVersion.WithResource("buyers"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Anddd7().V1beta1().Buyers().Informer()}, nil
+	// Group=k8scrdtutorial.github.com, Version=v1alpha1
+	case v1alpha1.SchemeGroupVersion.WithResource("buyers"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.K8scrdtutorial().V1alpha1().Buyers().Informer()}, nil
+	case v1alpha1.SchemeGroupVersion.WithResource("sellers"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.K8scrdtutorial().V1alpha1().Sellers().Informer()}, nil
 
 	}
 

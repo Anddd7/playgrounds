@@ -19,9 +19,10 @@ limitations under the License.
 package fake
 
 import (
-	clientset "anddd7.github.com/buyer-controller/pkg/generated/clientset/versioned"
-	anddd7v1beta1 "anddd7.github.com/buyer-controller/pkg/generated/clientset/versioned/typed/anddd7/v1beta1"
-	fakeanddd7v1beta1 "anddd7.github.com/buyer-controller/pkg/generated/clientset/versioned/typed/anddd7/v1beta1/fake"
+	clientset "k8s-crd-tutorial/pkg/generated/clientset/versioned"
+	k8scrdtutorialv1alpha1 "k8s-crd-tutorial/pkg/generated/clientset/versioned/typed/k8scrdtutorial/v1alpha1"
+	fakek8scrdtutorialv1alpha1 "k8s-crd-tutorial/pkg/generated/clientset/versioned/typed/k8scrdtutorial/v1alpha1/fake"
+
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -79,7 +80,7 @@ var (
 	_ testing.FakeClient  = &Clientset{}
 )
 
-// Anddd7V1beta1 retrieves the Anddd7V1beta1Client
-func (c *Clientset) Anddd7V1beta1() anddd7v1beta1.Anddd7V1beta1Interface {
-	return &fakeanddd7v1beta1.FakeAnddd7V1beta1{Fake: &c.Fake}
+// K8scrdtutorialV1alpha1 retrieves the K8scrdtutorialV1alpha1Client
+func (c *Clientset) K8scrdtutorialV1alpha1() k8scrdtutorialv1alpha1.K8scrdtutorialV1alpha1Interface {
+	return &fakek8scrdtutorialv1alpha1.FakeK8scrdtutorialV1alpha1{Fake: &c.Fake}
 }

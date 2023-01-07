@@ -10,13 +10,16 @@
     cd artifacts
 
     k apply -f crd-buyer.yaml
+    k apply -f crd-seller.yaml
     k apply -f buyers.yaml
+    k apply -f sellers.yaml
     ```
 
 - Print resources
 
     ```sh
     k get buyers -o jsonpath='{range .items[*]}{@.metadata.name}:{@.spec.name}{"\n"}{end}'
+    k get sellers -o jsonpath='{range .items[*]}{@.metadata.name}:{@.spec.name}{"\n"}{end}'
     ```
 
 ### Step 2
@@ -24,22 +27,21 @@
 创建脚手架（以便代码生成）
 
 - go mod init
-  - `go mod init <group_name>/project-name`
-  - `go mod init anddd7.github.com/buyer-controller`
+  - `go mod init <project-name>`
 - 创建 register.go
 
     ```sh
     # pkg/api/<group_name>
-    mkdir -p pkg/apis/anddd7
-    touch pkg/apis/anddd7/register.go
+    mkdir -p pkg/apis/k8scrdtutorial
+    touch pkg/apis/k8scrdtutorial/register.go
     ```
 
 - 创建 doc.go
 
     ```sh
     # pkg/api/<group_name>/<version>
-    mkdir -p pkg/apis/anddd7/v1beta1
-    touch pkg/apis/anddd7/v1beta1/doc.go
+    mkdir -p pkg/apis/k8scrdtutorial/v1alpha1
+    touch pkg/apis/k8scrdtutorial/v1alpha1/doc.go
     ```
 
   - 添加注释
@@ -48,19 +50,19 @@
     // 声明为整个包下的类型定义生成DeepCopy方法；
     // +k8s:deepcopy-gen=package 
     // 声明了这个包对应的API的组名，和CRD中的组名一致；
-    // +groupName=anddd7.github.com
+    // +groupName=k8scrdtutorial.github.com
   ```
 
 - 创建 types.go
 
     ```sh
-    touch pkg/apis/anddd7/v1beta1/types.go
+    touch pkg/apis/k8scrdtutorial/v1alpha1/types.go
     ```
 
 - 创建 register.go
 
     ```sh
-    touch pkg/apis/anddd7/v1beta1/register.go
+    touch pkg/apis/k8scrdtutorial/v1beta1/register.go
     ```
 
 - 目录结构
@@ -70,14 +72,16 @@
   ├── README.md
   ├── artifacts
   │   ├── buyers.yaml
-  │   └── crd-buyer.yaml
+  │   ├── crd-buyer.yaml
+  │   ├── crd-seller.yaml
+  │   └── sellers.yaml
   ├── go.mod
   ├── go.sum
   └── pkg
       └── apis
-          └── anddd7
+          └── k8scrdtutorial
               ├── register.go
-              └── v1beta1
+              └── v1alpha1
                   ├── doc.go
                   ├── register.go
                   └── types.go
@@ -97,4 +101,9 @@
     chmod -R 777 vendor
     ./hack/update-codegen.sh
   ```
+
 - 编写 main.go 测试
+
+## Step 4
+
+- 编写 controller.go

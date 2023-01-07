@@ -19,22 +19,27 @@ limitations under the License.
 package fake
 
 import (
-	v1beta1 "anddd7.github.com/buyer-controller/pkg/generated/clientset/versioned/typed/anddd7/v1beta1"
+	v1alpha1 "k8s-crd-tutorial/pkg/generated/clientset/versioned/typed/k8scrdtutorial/v1alpha1"
+
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )
 
-type FakeAnddd7V1beta1 struct {
+type FakeK8scrdtutorialV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeAnddd7V1beta1) Buyers(namespace string) v1beta1.BuyerInterface {
+func (c *FakeK8scrdtutorialV1alpha1) Buyers(namespace string) v1alpha1.BuyerInterface {
 	return &FakeBuyers{c, namespace}
+}
+
+func (c *FakeK8scrdtutorialV1alpha1) Sellers(namespace string) v1alpha1.SellerInterface {
+	return &FakeSellers{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *FakeAnddd7V1beta1) RESTClient() rest.Interface {
+func (c *FakeK8scrdtutorialV1alpha1) RESTClient() rest.Interface {
 	var ret *rest.RESTClient
 	return ret
 }

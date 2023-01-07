@@ -20,9 +20,9 @@ package versioned
 
 import (
 	"fmt"
+	k8scrdtutorialv1alpha1 "k8s-crd-tutorial/pkg/generated/clientset/versioned/typed/k8scrdtutorial/v1alpha1"
 	"net/http"
 
-	anddd7v1beta1 "anddd7.github.com/buyer-controller/pkg/generated/clientset/versioned/typed/anddd7/v1beta1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -30,18 +30,18 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	Anddd7V1beta1() anddd7v1beta1.Anddd7V1beta1Interface
+	K8scrdtutorialV1alpha1() k8scrdtutorialv1alpha1.K8scrdtutorialV1alpha1Interface
 }
 
 // Clientset contains the clients for groups.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	anddd7V1beta1 *anddd7v1beta1.Anddd7V1beta1Client
+	k8scrdtutorialV1alpha1 *k8scrdtutorialv1alpha1.K8scrdtutorialV1alpha1Client
 }
 
-// Anddd7V1beta1 retrieves the Anddd7V1beta1Client
-func (c *Clientset) Anddd7V1beta1() anddd7v1beta1.Anddd7V1beta1Interface {
-	return c.anddd7V1beta1
+// K8scrdtutorialV1alpha1 retrieves the K8scrdtutorialV1alpha1Client
+func (c *Clientset) K8scrdtutorialV1alpha1() k8scrdtutorialv1alpha1.K8scrdtutorialV1alpha1Interface {
+	return c.k8scrdtutorialV1alpha1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -88,7 +88,7 @@ func NewForConfigAndClient(c *rest.Config, httpClient *http.Client) (*Clientset,
 
 	var cs Clientset
 	var err error
-	cs.anddd7V1beta1, err = anddd7v1beta1.NewForConfigAndClient(&configShallowCopy, httpClient)
+	cs.k8scrdtutorialV1alpha1, err = k8scrdtutorialv1alpha1.NewForConfigAndClient(&configShallowCopy, httpClient)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.anddd7V1beta1 = anddd7v1beta1.New(c)
+	cs.k8scrdtutorialV1alpha1 = k8scrdtutorialv1alpha1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs
