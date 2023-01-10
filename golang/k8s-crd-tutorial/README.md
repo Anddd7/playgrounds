@@ -107,3 +107,17 @@
 ## Step 4
 
 - 编写 controller.go
+
+## Step 5
+
+- 验证资源已被修改
+
+  ```sh
+  k get sellers -o jsonpath='{range .items[*]}{@.metadata.name}{"\t"}{@.spec.name}{"\t"}{@.spec.price}:{@.spec.amount}:{@.spec.money}{"\n"}{end}'
+  k get buyers -o jsonpath='{range .items[*]}{@.metadata.name}{"\t"}{@.spec.name}{"\t"}{@.spec.price}:{@.spec.amount}{"\n"}{end}'
+  ```
+
+## Step 6
+
+- build and package as image
+- start it as k8s pod (bind kubeconfig in or process via service account)
