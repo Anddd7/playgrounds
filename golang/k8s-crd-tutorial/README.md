@@ -124,4 +124,5 @@
 
 ## Operator
 
-<https://sdk.operatorframework.io/docs/building-operators/golang/tutorial/>
+- `gvm use go1.19`
+- <https://sdk.operatorframework.io/docs/building-operators/golang/tutorial/>
