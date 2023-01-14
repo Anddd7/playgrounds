@@ -87,7 +87,7 @@
                   └── types.go
   ```
 
-## Step 3
+### Step 3
 
 - 准备 hack 文件夹
   - 下载必要的依赖
@@ -104,11 +104,11 @@
 
 - 编写 main.go 测试
 
-## Step 4
+### Step 4
 
 - 编写 controller.go
 
-## Step 5
+### Step 5
 
 - 验证资源已被修改
 
@@ -117,7 +117,11 @@
   k get buyers -o jsonpath='{range .items[*]}{@.metadata.name}{"\t"}{@.spec.name}{"\t"}{@.spec.price}:{@.spec.amount}{"\n"}{end}'
   ```
 
-## Step 6
+### Step 6
 
 - build and package as image
 - start it as k8s pod (bind kubeconfig in or process via service account)
+
+## Operator
+
+<https://sdk.operatorframework.io/docs/building-operators/golang/tutorial/>
