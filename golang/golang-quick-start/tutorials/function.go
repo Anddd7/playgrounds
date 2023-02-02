@@ -1,4 +1,4 @@
-package main
+package tutorials
 
 import "fmt"
 
@@ -15,8 +15,7 @@ func chinese(name string) string {
 	return "你好, " + name
 }
 
-func main() {
-
+func Test() {
 	// 转换成 Greeting 类型的函数对象
 	greets := []Greeting{Greeting(english), Greeting(chinese)}
 
